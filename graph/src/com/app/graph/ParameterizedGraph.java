@@ -81,6 +81,10 @@ public class ParameterizedGraph<T> {
 				return false;
 			return true;
 		}
+		
+		public String toString() {
+			return String.valueOf(this.label);
+		}
 
 	}
 }

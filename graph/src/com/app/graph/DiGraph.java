@@ -80,5 +80,9 @@ public class DiGraph {
 				return false;
 			return true;
 		}
+		
+		public String toString() {
+			return String.valueOf(this.label);
+		}
 	}
 }
