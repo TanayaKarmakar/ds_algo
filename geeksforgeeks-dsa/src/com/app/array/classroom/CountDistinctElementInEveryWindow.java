@@ -20,7 +20,7 @@ public class CountDistinctElementInEveryWindow {
 			i++;
 			start++;
 		}
-		//printing the last element
+		// printing the last element
 		System.out.print(map.size() + "\t");
 		System.out.println();
 	}
@@ -47,6 +47,9 @@ public class CountDistinctElementInEveryWindow {
 	public static void main(String[] args) {
 		int[] arr = { 1, 2, 1, 3, 4, 3, 3 };
 		countDistinctElement(arr, 4);
+
+		arr = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+		countDistinctElement(arr, 3);
 	}
 
 }
