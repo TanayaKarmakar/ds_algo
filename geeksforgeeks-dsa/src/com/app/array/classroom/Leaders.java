@@ -2,22 +2,19 @@ package com.app.array.classroom;
 
 public class Leaders {
 	private static void leaders(int[] arr) {
-		int n = arr.length - 1;
-		int max = arr[n];
-		int prev = arr[n];
-		boolean printed = false;
-		for (int i = n; i >= 0; i--) {
-			if ((prev != max || i == n) && !printed) {
-				System.out.print(max + "\t");
-				printed = true;
+		int n = arr.length;
+		int i = n - 2;
+		int max = arr[n - 1];
+		StringBuilder sb = new StringBuilder();
+		sb.append(max + " ");
+		while (i >= 0) {
+			if (arr[i] >= max) {
+				max = arr[i];
+				sb.append(max + " ");
 			}
-			if ((i - 1) > 0 && arr[i - 1] > max) {
-				prev = max;
-				max = arr[i - 1];
-				printed = false;
-			}
+			i--;
 		}
-		System.out.println();
+		System.out.println(sb.toString());
 	}
 
 	public static void main(String[] args) {
@@ -26,6 +23,7 @@ public class Leaders {
 
 		arr = new int[] { 5, 3, 20, 15, 8, 3 };
 		leaders(arr);
+
 	}
 
 }
