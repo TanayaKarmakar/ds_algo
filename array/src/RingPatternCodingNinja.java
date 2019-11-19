@@ -2,15 +2,16 @@
 public class RingPatternCodingNinja {
 	private static void printPattern(int n) {
 		int[][] mat = buildPattern(n);
-		
+
 		int dim = mat.length;
-		for(int i = 0;i<dim;i++) {
-			for(int j = 0;j<dim;j++) {
+		for (int i = 0; i < dim; i++) {
+			for (int j = 0; j < dim; j++) {
 				System.out.print(mat[i][j] + " ");
 			}
 			System.out.println();
 		}
 	}
+
 	private static int[][] buildPattern(int n) {
 		int nDim = 2 * n - 1;
 		int[][] mat = new int[nDim][nDim];
