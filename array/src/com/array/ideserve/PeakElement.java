@@ -36,6 +36,9 @@ public class PeakElement {
 
 		arr = new int[] { 1, 2, 3, 4, 6 };
 		System.out.println("Peak Element - " + peakElement(arr, 0, arr.length - 1));
+		
+		arr = new int[]{ 20, 30, 5, 18, 19, 15 };
+		System.out.println("PeakElement " + peakElement(arr, 0, arr.length - 1));
 	}
 
 }
