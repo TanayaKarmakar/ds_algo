@@ -20,6 +20,9 @@ public class SpiralMatrix {
 		int traversedElemCount = 0;
 
 		for (int i = 0; i <= limit; i++) {
+			if(traversedElemCount == totalElem)
+				break;
+			
 			for (int j = startCol; j <= endCol; j++) {
 				System.out.print(mat[startRow][j] + " ");
 				traversedElemCount++;
@@ -51,10 +54,6 @@ public class SpiralMatrix {
 				System.out.print(mat[j][startCol] + " ");
 				traversedElemCount++;
 			}
-			
-			if(traversedElemCount == totalElem)
-				break;
-
 			startCol++;
 		}
 		System.out.println();
