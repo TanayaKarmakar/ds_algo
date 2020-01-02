@@ -28,16 +28,16 @@ public class FirstNonRepeatingIndex {
 			res = -1;
 
 		return res;
-		//return (res == -1)? Character.va"-1" : str.charAt(res);
+		// return (res == -1)? Character.va"-1" : str.charAt(res);
 	}
 
 	public static void main(String[] args) {
 		String str = "hello";
-		
+
 		System.out.println("Non repeating char index - " + getIndex(str));
-		
+
 		str = "zxvczbtxyzvy";
-		
+
 		System.out.println("Non repeating char index - " + getIndex(str));
 
 	}

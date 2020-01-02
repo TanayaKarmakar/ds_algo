@@ -6,9 +6,11 @@ public class LinkedList {
 	static class Node {
 		int data;
 		Node next;
+		boolean visited;
 		
 		public Node(int data) {
 			this.data = data;
+			this.visited = false;
 		}
 	}
 
