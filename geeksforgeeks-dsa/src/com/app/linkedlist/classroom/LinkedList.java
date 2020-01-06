@@ -1,11 +1,11 @@
 package com.app.linkedlist.classroom;
 
 public class LinkedList {
-	Node head;
+	public Node head;
 	
-	static class Node {
-		int data;
-		Node next;
+	public static class Node {
+		public int data;
+		public Node next;
 		boolean visited;
 		
 		public Node(int data) {
