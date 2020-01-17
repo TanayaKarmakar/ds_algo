@@ -36,4 +36,15 @@ public class DoublyLinkedList {
 		}
 		System.out.println();
 	}
+	
+	public void traverseRightToLeft(Node last) {
+		Node tmp = last;
+		
+		while(tmp != null) {
+			System.out.print(tmp.data + " ");
+			tmp = tmp.prev;
+		}
+		
+		System.out.println();
+	}
 }

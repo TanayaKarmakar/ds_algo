@@ -81,7 +81,7 @@ public class CopyLinkedListWithNextAndRandomPointer {
 		while(origCurr != null) {
 			clonedCurr = nodeMap.get(origCurr);
 			clonedCurr.next = nodeMap.get(origCurr.next);
-			clonedCurr.random = nodeMap.get(origCurr.next);
+			clonedCurr.random = nodeMap.get(origCurr.random);
 			origCurr = origCurr.next;
 		}
 		
