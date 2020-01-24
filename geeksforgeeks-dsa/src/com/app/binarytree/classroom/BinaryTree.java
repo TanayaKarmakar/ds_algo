@@ -1,12 +1,12 @@
 package com.app.binarytree.classroom;
 
 public class BinaryTree {
-	Node root;
+	public Node root;
 	
-	static class Node {
-		int data;
-		Node left;
-		Node right;
+	public static class Node {
+		public int data;
+		public Node left;
+		public Node right;
 		
 		public Node(int data) {
 			this.data = data;
