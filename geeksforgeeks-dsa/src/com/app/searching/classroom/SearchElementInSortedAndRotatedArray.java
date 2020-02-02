@@ -60,6 +60,12 @@ public class SearchElementInSortedAndRotatedArray {
 
 		arr = new int[] { 20, 30, 40, 50, 70, 80, 10 };
 		System.out.println("Index of 10 is " + searchElement(arr, 10));
+		
+		int[] nums = new int[] { 3, 4, 5, 6, 1, 2 };
+
+		int x = 2;
+
+		System.out.println("Index of " + x + " is " + searchElement(nums, x));
 	}
 
 }
