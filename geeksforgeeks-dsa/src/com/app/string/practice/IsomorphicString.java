@@ -2,33 +2,34 @@ package com.app.string.practice;
 
 public class IsomorphicString {
 	private static boolean isIsomorphic(String str1, String str2) {
-		if (str1.length() != str2.length())
-			return false;
-		int[] count1 = new int[256];
-		int[] count2 = new int[256];
-
-		int n = str1.length();
-		for (int i = 0; i < n; i++) {
-			count1[str1.charAt(i)]++;
-			count2[str2.charAt(i)]++;
-		}
-
-		for (int i = 0; i < n; i++) {
-			if (count1[str1.charAt(i)] != count2[str2.charAt(i)])
+		char[] s = str1.toCharArray();
+		char[] t = str2.toCharArray();
+		int[] smap = new int[256];
+		int[] tmap = new int[256];
+		for (int i = 0; i < s.length; i++) {
+			if (smap[s[i]] == 0 && tmap[t[i]] == 0) {
+				smap[s[i]] = t[i];
+				tmap[t[i]] = s[i];
+			} else if (smap[s[i]] != t[i])
 				return false;
 		}
 		return true;
 	}
 
 	public static void main(String[] args) {
-		String str1 = "aab";
+		/*String str1 = "aab";
 		String str2 = "xxy";
-		
+
 		System.out.println("Isomorphic - " + isIsomorphic(str1, str2));
-		
+
 		str1 = "aab";
 		str2 = "xyz";
-		
+
+		System.out.println("Isomorphic - " + isIsomorphic(str1, str2));*/
+
+		String str1 = "abba";
+		String str2 = "abab";
+
 		System.out.println("Isomorphic - " + isIsomorphic(str1, str2));
 
 	}
