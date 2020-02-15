@@ -34,6 +34,10 @@ public class Graph {
 		return this.adjList.get(nVertex);
 	}
 	
+	public ArrayList<ArrayList<Integer>> getAdjList() {
+		return this.adjList;
+	}
+	
 	public int getNumVertices() {
 		return this.nVertices;
 	}
