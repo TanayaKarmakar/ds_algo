@@ -52,6 +52,12 @@ public class CourseFinish {
 		preReq = new int[][] { { 1, 0 }, { 0, 1 } };
 
 		System.out.println(canSolve(preReq, 2));
+		
+		System.out.println(canSolve(preReq, 3));
+		
+		preReq = new int[][] { { 1, 0 }};
+		
+		System.out.println(canSolve(preReq, 3));
 	}
 
 }
