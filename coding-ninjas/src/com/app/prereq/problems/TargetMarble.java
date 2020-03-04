@@ -7,30 +7,22 @@ import java.util.Scanner;
 public class TargetMarble {
 	private static boolean isArrangementPossible(int[] nums, int target, List<Integer> res) {
 		int n = nums.length;
-		int start = 0;
-		int end = n - 1;
-		int sum = 0;
-		while(start <= end) {
-			if(nums[start] > target) {
-				if(sum > 0) {
-					sum = 0;
-					res.clear();
-				}
-				start++;
-			} else if(nums[start] == target) {
-				res.clear();
-				res.add(nums[start]);
+		for (int i = 0; i < n; i++) {
+			res.add(nums[i]);
+			int newTarget = target - nums[i];
+			int sum = 0;
+			int j = i + 1;
+			while (j < n && sum < newTarget) {
+				sum += nums[j];
+				res.add(nums[j]);
+				j++;
+			}
+
+			if (sum == newTarget)
 				return true;
-			} else {
-				sum += nums[start];
-				res.add(nums[start]);
-				start++;
-				if(sum == target)
-					return true;
-				if(sum > target) {
-					sum = 0;
-					res.clear();
-				}
+			if (sum > newTarget) {
+				res.clear();
+				sum = 0;
 			}
 		}
 		return false;
@@ -41,20 +33,20 @@ public class TargetMarble {
 		String input = scanner.nextLine();
 		int nDim = Integer.parseInt(input.split("\\s+")[0]);
 		int target = Integer.parseInt(input.split("\\s+")[1]);
-		
+
 		int[] nums = new int[nDim];
 		String strInput = scanner.nextLine();
-		
+
 		int indx = 0;
-		for(String el: strInput.split("\\s+")) {
+		for (String el : strInput.split("\\s+")) {
 			nums[indx++] = Integer.parseInt(el);
 		}
-		
+
 		List<Integer> res = new ArrayList<>();
 		boolean isPossible = isArrangementPossible(nums, target, res);
 		System.out.println(isPossible);
-		if(isPossible) {
-			for(Integer el: res) {
+		if (isPossible) {
+			for (Integer el : res) {
 				System.out.print(el + " ");
 			}
 			System.out.println();
