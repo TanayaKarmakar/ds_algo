@@ -1,7 +1,5 @@
 package com.app.array.classroom;
 
-import java.util.Scanner;
-
 public class DivideArrayInThreePartsEqualSum {
 	private static boolean canDivideIn3(int[] arr) {
 		int n = arr.length;

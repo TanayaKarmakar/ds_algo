@@ -22,7 +22,10 @@ public class LongestConsecutiveIncreasingSubsequence {
 
 		int n = nums.length;
 		for (int i = 0; i < n; i++) {
-			visitedMap.put(nums[i], new VisitedIndx(i, true));
+			if(!visitedMap.containsKey(nums[i])) {
+				visitedMap.put(nums[i], new VisitedIndx(i, true));
+			}
+			
 		}
 
 		int i = 0;
@@ -77,7 +80,7 @@ public class LongestConsecutiveIncreasingSubsequence {
 	}
 
 	public static void main(String[] args) {
-		/*int[] nums = { 3, 7, 2, 1, 9, 8, 1 };
+		int[] nums = { 3, 7, 2, 1, 9, 8, 1 };
 
 		System.out.println(longestConsecutiveIncreasingSequence(nums));
 
@@ -87,12 +90,15 @@ public class LongestConsecutiveIncreasingSubsequence {
 
 		nums = new int[] { 2, 12, 9, 16, 10, 5, 3, 20, 25, 11, 1, 8, 6 };
 
-		System.out.println(longestConsecutiveIncreasingSequence(nums));*/
-
-		int[] nums = new int[] { 11, 13, 14, 5, 4, 12, 6, 8, 10, 7 };
-		
 		System.out.println(longestConsecutiveIncreasingSequence(nums));
 
+		nums = new int[] { 11, 13, 14, 5, 4, 12, 6, 8, 10, 7 };
+		
+		System.out.println(longestConsecutiveIncreasingSequence(nums));
+		
+		nums = new int[] {4, 3, 2, 6, 1, 7, 8, 9, 6};
+		
+		System.out.println(longestConsecutiveIncreasingSequence(nums));
 	}
 
 }
