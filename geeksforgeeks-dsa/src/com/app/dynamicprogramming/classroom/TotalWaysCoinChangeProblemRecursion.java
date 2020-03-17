@@ -1,6 +1,6 @@
 package com.app.dynamicprogramming.classroom;
 
-public class MinimumCoinChangeProblemRecursion {
+public class TotalWaysCoinChangeProblemRecursion {
 	private static int minCoinChange(int[] coins, int val) {
 		if (val == 0)
 			return 0;
