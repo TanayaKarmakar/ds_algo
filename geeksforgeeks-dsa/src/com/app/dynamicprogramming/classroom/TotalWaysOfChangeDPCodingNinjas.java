@@ -2,7 +2,7 @@ package com.app.dynamicprogramming.classroom;
 
 import java.util.Arrays;
 
-public class MinimumCoinChangeDPCodingNinjas {
+public class TotalWaysOfChangeDPCodingNinjas {
 	private static int totalNumberOfWays(int n, int[] coins, int k, int[][] dp, int startIndx) {
 		if (n == 0)
 			return 1;
