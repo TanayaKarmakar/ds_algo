@@ -28,10 +28,12 @@ public class BasicCalculator {
 					|| currentChar == MINUS) {
 				tokens.add(currentChar + "");
 			} else {
+				//if condition means current char is digit but previous one plus, minus, or parentheses
 				if(tokens.size() == 0 || tokens.get(tokens.size() - 1).equals(OPENING_PAR + "") || tokens.get(tokens.size() - 1).equals(CLOSING_PAR + "")
 						|| tokens.get(tokens.size() - 1).equals(PLUS + "") || tokens.get(tokens.size() - 1).equals(MINUS + "")) {
 					tokens.add(currentChar + "");
 				} else {
+					//this means previous character was digit
 					String prevToken = tokens.get(tokens.size() - 1);
 					tokens.remove(tokens.size() - 1);
 					tokens.add(prevToken + currentChar);
