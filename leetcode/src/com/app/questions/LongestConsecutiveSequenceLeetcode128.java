@@ -47,7 +47,13 @@ public class LongestConsecutiveSequenceLeetcode128 {
 		System.out.println(maxLen);
 
 		nums = new int[] { 1, 2, 3, 4, 7, 8, 9, 11, 12 };
-		
+
+		maxLen = longestConsecutive(nums);
+
+		System.out.println(maxLen);
+
+		nums = new int[] { 20, 30, 40 };
+
 		maxLen = longestConsecutive(nums);
 
 		System.out.println(maxLen);
