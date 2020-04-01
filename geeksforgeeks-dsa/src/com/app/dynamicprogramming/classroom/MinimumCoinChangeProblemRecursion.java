@@ -19,8 +19,8 @@ public class MinimumCoinChangeProblemRecursion {
 	}
 
 	public static void main(String[] args) {
-		int[] coins = { 25, 10, 5 };
-		int val = 30;
+		int[] coins = { 1, 2, 5 };
+		int val = 11;
 
 		int minNumberCoins = minCoinChange(coins, val);
 		System.out.println("Minimum value - " + minNumberCoins);

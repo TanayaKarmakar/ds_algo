@@ -16,7 +16,7 @@ public class MinimumEditDistanceRecursion {
 
 	public static void main(String[] args) {
 		String str1 = "cat";
-		String str2 = "cut";
+		String str2 = "cot";
 		
 		System.out.println("Min Distance - " + findMinDistance(str1, str2, str1.length(), str2.length()));
 
