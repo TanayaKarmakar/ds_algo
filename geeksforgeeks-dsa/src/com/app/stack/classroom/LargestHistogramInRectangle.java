@@ -1,4 +1,4 @@
-	package com.app.stack.classroom;
+package com.app.stack.classroom;
 
 import java.util.Stack;
 
@@ -35,11 +35,11 @@ public class LargestHistogramInRectangle {
 			maxRes = Integer.max(res, maxRes);
 		}
 
-		return res;
+		return maxRes;
 	}
 
 	public static void main(String[] args) {
-		int[] arr = { 2, 1, 2 };
+		int[] arr = { 6, 2, 5, 4, 5, 1, 6 };
 
 		System.out.println("MaxArea - " + largestHistogram(arr));
 
