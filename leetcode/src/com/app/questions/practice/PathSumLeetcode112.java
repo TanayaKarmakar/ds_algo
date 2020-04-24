@@ -3,9 +3,24 @@ package com.app.questions.practice;
 import com.app.questions.practice.BinaryTree.TreeNode;
 
 public class PathSumLeetcode112 {
+	private static boolean isLeaf(TreeNode root) {
+		return (root.left == null && root.right == null);
+	}
 
 	private static boolean isPathSum(TreeNode root, int currentSum, int sum) {
-		
+		if(root == null) {
+			return false;
+		}
+		if(isLeaf(root)) {
+			if(currentSum + root.data == sum)
+				return true;
+			else
+				return false;
+		}
+		currentSum += root.data;
+		boolean lPath = isPathSum(root.left, currentSum, sum);
+		boolean rPath = isPathSum(root.right, currentSum, sum);
+		return lPath || rPath;
 	}
 
 	public static void main(String[] args) {

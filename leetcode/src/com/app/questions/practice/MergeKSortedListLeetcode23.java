@@ -1,107 +1,95 @@
 package com.app.questions.practice;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import com.app.questions.practice.LinkedList.ListNode;
 
-class NodeComparator implements Comparator<Triplet> {
-
+class ListItem implements Comparable<ListItem> {
+	int listPos;
+	int valuePos;
+	ListNode head;
+	
 	@Override
-	public int compare(Triplet t1, Triplet t2) {
-		if(t1.node.val == t2.node.val)
-			return 0;
-		else if(t1.node.val < t2.node.val)
-			return -1;
-		else
-			return 1;
-	}
-	
-}
-
-class Triplet {
-	ListNode node;
-	int aPos;
-	int vPos;
-	
-	public Triplet(ListNode node, int aPos, int vPos) {
-		this.node = node;
-		this.aPos = aPos;
-		this.vPos = vPos;
-	}
+	public int compareTo(ListItem o) {
+		return this.head.val - o.head.val;
+	}	
 }
 
 public class MergeKSortedListLeetcode23 {
-	private static ListNode merge(ListNode[] nodes) {
-		if(nodes.length == 0)
+	public static ListNode mergeKLists(ListNode[] lists) {
+		if(lists.length == 0)
 			return null;
-        if(nodes.length == 1)
-			return nodes[0];
-		int size = nodes.length;
-		
-		PriorityQueue<Triplet> pQ = new PriorityQueue<Triplet>(new NodeComparator());
-		
-		for(int i = 0; i < size; i++) {
-			if(nodes[i] != null) {
-				Triplet triplet = new Triplet(nodes[i], i, 0);
-				pQ.add(triplet);
-			}	
+		if(lists.length == 1) {
+			return lists[0];
 		}
-		
-		if(pQ.isEmpty())
-			return null;
-		
-		ListNode dummy = new ListNode(Integer.MAX_VALUE);
-		
-		ListNode temp = dummy;
-		
-		while(!pQ.isEmpty()) {
-			Triplet item = pQ.poll();
-			ListNode pNode = item.node;
-			
-			item.node = item.node.next;
-			
-			pNode.next = null;
-			
-			temp.next = pNode;
-			temp = temp.next;
-			
-			if(item.node != null) {
-				pQ.add(new Triplet(item.node, item.aPos, item.vPos + 1));
-			}	
-		}
-		
-		dummy = dummy.next;
-		return dummy;
-	}
+        int k = lists.length;
+        
+        PriorityQueue<ListItem> pQ = new PriorityQueue<>();
+        for(int i = 0; i < k; i++) {
+        	if(lists[i] != null) {
+        		ListItem item = new ListItem();
+            	item.listPos = i;
+            	item.valuePos = 0;
+            	item.head = lists[i];
+            	pQ.add(item);
+        	}
+        }
+        
+        if(pQ.isEmpty())
+        	return null;
+        
+        ListNode head = new ListNode(Integer.MAX_VALUE);
+        ListNode temp = head;
+        
+        while(!pQ.isEmpty()) {
+        	ListItem item = pQ.poll();
+        	int listPos = item.listPos;
+        	int valuePos = item.valuePos;
+        	ListNode node = item.head;
+        	ListNode curr = node;
+        	node = node.next;
+        	curr.next = null;
+        	temp.next = curr;
+        	temp = temp.next;
+        	if(node != null) {
+        		ListItem newItem = new ListItem();
+            	newItem.head = node;
+            	newItem.listPos = listPos;
+            	newItem.valuePos = valuePos + 1;
+            	pQ.add(newItem);
+        	}	
+        }
+        
+        head = head.next;
+        return head;
+    }
 
 	public static void main(String[] args) {
-		LinkedList l1 = new LinkedList();
-		l1.head = new ListNode(1);
-		l1.head.next = new ListNode(4);
-		l1.head.next.next = new ListNode(5);
+		ListNode node1 = new ListNode(1);
+		node1.next = new ListNode(4);
+		node1.next.next = new ListNode(5);
 		
-		LinkedList l2 = new LinkedList();
-		l2.head = new ListNode(1);
-		l2.head.next = new ListNode(3);
-		l2.head.next.next = new ListNode(4);
+		ListNode node2 = new ListNode(1);
+		node2.next = new ListNode(3);
+		node2.next.next = new ListNode(4);
 		
-		LinkedList l3 = new LinkedList();
-		l3.head = new ListNode(2);
-		l3.head.next = new ListNode(6);
+		ListNode node3 = new ListNode(2);
+		node3.next = new ListNode(6);
 		
 		ListNode[] nodes = new ListNode[3];
-		nodes[0] = l1.head;
-		nodes[1] = l2.head;
-		nodes[2] = l3.head;
+		nodes[0] = node1;
+		nodes[1] = node2;
+		nodes[2] = node3;
 		
-		ListNode node = merge(nodes);
-		ListNode tmp = node;
+		ListNode head = mergeKLists(nodes);
 		
-		while(tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.next;
+		ListNode temp = head;
+		
+		while(temp != null) {
+			System.out.print(temp.val + " ");
+			temp = temp.next;
 		}
+		
 
 	}
 
