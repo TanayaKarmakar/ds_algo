@@ -1,8 +1,8 @@
 package com.app.questions;
 
-import com.app.questions.LinkedList.Node;
+import com.app.questions.LinkedList2.Node;
 
-class LinkedList {
+class LinkedList2 {
 	Node head;
 
 	static class Node {
@@ -64,7 +64,7 @@ public class RemoveNthNodeFromLinkedList {
 	}
 
 	public static void main(String[] args) {
-		LinkedList ll = new LinkedList();
+		LinkedList2 ll = new LinkedList2();
 		ll.insertAtEnd(1);
 		ll.insertAtEnd(2);
 		ll.insertAtEnd(3);
@@ -77,7 +77,7 @@ public class RemoveNthNodeFromLinkedList {
 		
 		ll.display();
 		
-		ll = new LinkedList();
+		ll = new LinkedList2();
 		ll.insertAtEnd(1);
 		ll.insertAtEnd(2);
 		

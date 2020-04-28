@@ -2,227 +2,188 @@ package com.app.segmenttree.problems;
 
 import java.util.Scanner;
 
-class TreeNode {
-	int sumOfSqaures;
-	int sum;
+class Pair {
+	int first;
+	int second;
 	
-	public String toString() {
-		return sumOfSqaures + " " + sum;
+	public Pair() {
+		this.first = 0;
+		this.second = 0;
 	}
-}
-
-class LazyNode {
-	int value;
-	int type;
 }
 
 public class SumOfSquares {
-	private static final int TYPE0 = 0;
-	private static final int TYPE1 = 1;
-	private static final int TYPE2 = 2;
-	
-	private static void buildTree(int[] nums, TreeNode[] tree, int start, int end, int treeIndx) {
-		if(start == end) {
-			TreeNode node = new TreeNode();
-			node.sum = nums[start];
-			node.sumOfSqaures = nums[start]*nums[start];
+
+	private static void buildTree(int[] nums, Pair[] tree, int start, int end, int treeIndx) {
+		if (start == end) {
+			Pair node = new Pair();
+			node.second = nums[start];
+			node.first = nums[start] * nums[start];
 			tree[treeIndx] = node;
 			return;
 		}
-		
-		int mid = start + (end - start)/2;
+
+		int mid = start + (end - start) / 2;
 		buildTree(nums, tree, start, mid, 2 * treeIndx);
 		buildTree(nums, tree, mid + 1, end, 2 * treeIndx + 1);
-		TreeNode newNode = new TreeNode();
-		newNode.sumOfSqaures = tree[2*treeIndx].sumOfSqaures + tree[2*treeIndx + 1].sumOfSqaures;
-		newNode.sum = tree[2*treeIndx].sum + tree[2*treeIndx + 1].sum;
+		Pair newNode = new Pair();
+		newNode.first = tree[2 * treeIndx].first + tree[2 * treeIndx + 1].first;
+		newNode.second = tree[2 * treeIndx].second + tree[2 * treeIndx + 1].second;
 		tree[treeIndx] = newNode;
 		return;
 	}
-	
-	private static TreeNode getSumOfSquares(TreeNode[] tree, int start, int end, int left, int right, int treeIndx) {
-		if(end < left || start > right) {
-			TreeNode node = new TreeNode();
-			node.sumOfSqaures = 0;
-			node.sum = 0;
-			return node;
-		}
-		if(start >= left && end <= right) {
-			return tree[treeIndx];
-		}
-		
-		int mid = start + (end - start)/2;
-		TreeNode ans1 = getSumOfSquares(tree, start, mid, left, right, 2*treeIndx);
-		TreeNode ans2 = getSumOfSquares(tree, mid + 1, end, left, right, 2 *treeIndx + 1);
-		
-		TreeNode finalNode = new TreeNode();
-		finalNode.sumOfSqaures = ans1.sumOfSqaures + ans2.sumOfSqaures;
-		finalNode.sum = ans1.sum + ans2.sum;
-		return finalNode;
-	}
-	
-	private static void increaseByX(TreeNode[] tree, LazyNode[] lazy, int start, int end, int left, int right, int treeIndx, int value) {
-		if(lazy[treeIndx]!= null && lazy[treeIndx].type != 0) {
-			if(lazy[treeIndx].type == 1) {
-				tree[treeIndx].sumOfSqaures += lazy[treeIndx].value;
-			}
-			if(lazy[treeIndx].type == 2) {
-				tree[treeIndx].sumOfSqaures = lazy[treeIndx].value;
-			}
-			if(start != end) {
-				lazy[2 * treeIndx] = new LazyNode();
-				lazy[2 * treeIndx + 1] = new LazyNode();
-				lazy[2 * treeIndx].value += lazy[treeIndx].value;
-				lazy[2 * treeIndx].type = lazy[treeIndx].type;
-				lazy[2 * treeIndx + 1].value += lazy[treeIndx].value;
-				lazy[2 * treeIndx + 1].type = lazy[treeIndx].type;
-			}
-			
-			lazy[treeIndx].value = 0;
-			lazy[treeIndx].type = 0;
-		}
-		
-		if(end < left || start > end)
-			return;
-		else if(start >= left && end <= right) {
-			TreeNode node = tree[treeIndx];
-			int incrementedValue = (right - left + 1) * (value * value) + 2 * node.sum * value;
-			node.sumOfSqaures += incrementedValue;
-			node.sum += (right - left + 1) * value;
-			
-			if(start != end) {
-				lazy[2 * treeIndx] = new LazyNode();
-				lazy[2 * treeIndx + 1] = new LazyNode();
-				lazy[2 * treeIndx].value += incrementedValue;
-				lazy[2 * treeIndx].type = 1;
-				lazy[2 * treeIndx + 1].value += incrementedValue;
-				lazy[2 * treeIndx + 1].type = 1;
-			}
-			return;
-		}
-		
-		int mid = start + (end - start)/2;
-		increaseByX(tree, lazy, start, mid, left, right, 2 * treeIndx, value);
-		increaseByX(tree, lazy, mid + 1, end, left, right, 2 * treeIndx + 1, value);
-		
-		TreeNode leftChild = tree[2 * treeIndx];
-		TreeNode rightChild = tree[2 * treeIndx + 1];
-		TreeNode finalNode = new TreeNode();
-		finalNode.sumOfSqaures = leftChild.sumOfSqaures + rightChild.sumOfSqaures;
-		finalNode.sum = leftChild.sum + rightChild.sum;
-		tree[treeIndx] = finalNode;
-		return;
-	}
-	
-	public static void setX(TreeNode[] tree, LazyNode[] lazy, int start, int end, int left, int right, int treeIndx, int value) {
-		if(lazy[treeIndx]!= null && lazy[treeIndx].type != 0) {
-			if(lazy[treeIndx].type == 1) {
-				tree[treeIndx].sumOfSqaures += lazy[treeIndx].value;
-			}
-			if(lazy[treeIndx].type == 2) {
-				tree[treeIndx].sumOfSqaures = lazy[treeIndx].value;
-			}
-			if(start != end) {
-				lazy[2 * treeIndx] = new LazyNode();
-				lazy[2 * treeIndx + 1] = new LazyNode();
-				if(lazy[treeIndx].type == 1) {
-					lazy[2 * treeIndx].value += lazy[treeIndx].value;
-					lazy[2 * treeIndx + 1].value += lazy[treeIndx].value;
+
+	private static long getSumOfSquares(Pair[] tree, Pair[] lazy, int si, int ei, int left, int right, int node) {
+		if (lazy[node] != null && lazy[node].first != 0) {
+			if (lazy[node].second != 2) {
+				tree[node].first = tree[node].first + (2 * lazy[node].first * tree[node].second)
+						+ ((ei - si + 1) * lazy[node].first * lazy[node].first);
+				tree[node].second += (ei - si + 1) * lazy[node].first;
+
+				if (si != ei) {
+					lazy[2 * node].first += lazy[node].first;
+					lazy[2 * node + 1].first += lazy[node].first;
 				}
-				if(lazy[treeIndx].type == 2) {
-					lazy[2 * treeIndx].value = lazy[treeIndx].value;
-					lazy[2 * treeIndx + 1].value = lazy[treeIndx].value;
+
+				lazy[node].first = 0;
+				lazy[node].second = 0;
+			}
+
+			else {
+				tree[node].first = (ei - si + 1) * lazy[node].first * lazy[node].first;
+				tree[node].second = (ei - si + 1) * lazy[node].first;
+				if (si != ei) {
+					lazy[2 * node].second = 2;
+					lazy[2 * node + 1].second = 2;
+					lazy[2 * node].first = lazy[node].first;
+					lazy[2 * node + 1].first = lazy[node].first;
 				}
-				lazy[2 * treeIndx].type = lazy[treeIndx].type;				
-				lazy[2 * treeIndx + 1].type = lazy[treeIndx].type;
+				lazy[node].first = 0;
+				lazy[node].second = 0;
 			}
-			
-			lazy[treeIndx].value = 0;
-			lazy[treeIndx].type = 0;
 		}
-		
-		if(end < left || start > end)
-			return;
-		else if(start >= left && end <= right) {
-			TreeNode node = tree[treeIndx];
-			int newValue = (right - left + 1) * (value * value);
-			node.sumOfSqaures = newValue;
-			node.sum = (right - left + 1) * value;
-			
-			//System.out.println(node);
-			
-			if(start != end) {
-				lazy[2 * treeIndx] = new LazyNode();
-				lazy[2 * treeIndx + 1] = new LazyNode();
-				lazy[2 * treeIndx].value = newValue;
-				lazy[2 * treeIndx].type = 2;
-				lazy[2 * treeIndx + 1].value = newValue;
-				lazy[2 * treeIndx + 1].type = 2;
-			}
-			return;
-		}
-		
-		int mid = start + (end - start)/2;
-		setX(tree, lazy, start, mid, left, right, 2 * treeIndx, value);
-		setX(tree, lazy, mid + 1, end, left, right, 2 * treeIndx + 1, value);
-		
-		TreeNode leftChild = tree[2 * treeIndx];
-		TreeNode rightChild = tree[2 * treeIndx + 1];
-		TreeNode finalNode = new TreeNode();
-		finalNode.sumOfSqaures = leftChild.sumOfSqaures + rightChild.sumOfSqaures;
-		finalNode.sum = leftChild.sum + rightChild.sum;
-		tree[treeIndx] = finalNode;
-		return;
+		if (si > right || ei < left)
+			return 0;
+		if (si >= left && ei <= right)
+			return tree[node].first;
+		int mid = (si + ei) / 2;
+		long ans1 = getSumOfSquares(tree, lazy, si, mid, 2 * node, left, right);
+		long ans2 = getSumOfSquares(tree, lazy, mid + 1, ei, 2 * node + 1, left, right);
+		return ans1 + ans2;
 	}
-	
- 
+
+	private static void update(Pair[] tree, Pair[] lazy, int start, int end, int left, int right, int treeIndx,
+			int value, int type) {
+		if (start > end)
+			return;
+		if (lazy[treeIndx] != null && lazy[treeIndx].first != 0) {
+			if (lazy[treeIndx].second != 2) {
+				tree[treeIndx].first += (2 * lazy[treeIndx].first * tree[treeIndx].second)
+						+ ((end - start + 1) * lazy[treeIndx].first * lazy[treeIndx].first);
+				tree[treeIndx].second += (end - start + 1) * lazy[treeIndx].first;
+
+				if (start != end) {
+					lazy[2 * treeIndx].first += lazy[treeIndx].first;
+					lazy[2 * treeIndx + 1].first += lazy[treeIndx].first;
+				}
+
+				lazy[treeIndx].first = 0;
+				lazy[treeIndx].second = 0;
+			} else {
+				tree[treeIndx].first = (end - start + 1) * lazy[treeIndx].first * lazy[treeIndx].first;
+				tree[treeIndx].second = (end - start + 1) * lazy[treeIndx].first;
+				if (start != end) {
+					lazy[2 * treeIndx].second = 2;
+					lazy[2 * treeIndx + 1].second = 2;
+					lazy[2 * treeIndx].first = lazy[treeIndx].first;
+					lazy[2 * treeIndx + 1].first = lazy[treeIndx].first;
+				}
+				lazy[treeIndx].first = 0;
+				lazy[treeIndx].second = 0;
+			}
+		}
+		if (start > right || end < left)
+			return;
+		if (start >= left && end <= right) {
+			if (type == 1) {
+				tree[treeIndx].first = tree[treeIndx].first + (2 * value * tree[treeIndx].second)
+						+ ((end - start + 1) * value * value);
+				tree[treeIndx].second += (end - start + 1) * value;
+
+				if (start != end) {
+					lazy[2 * treeIndx].first += lazy[treeIndx].first;
+					lazy[2 * treeIndx + 1].first += lazy[treeIndx].first;
+				}
+				return;
+			} else {
+				tree[treeIndx].first = (end - start + 1) * value * value;
+				tree[treeIndx].second = (end - start + 1) * value;
+				if (start != end) {
+					lazy[2 * treeIndx].second = 2;
+					lazy[2 * treeIndx + 1].second = 2;
+					lazy[2 * treeIndx].first = value;
+					lazy[2 * treeIndx + 1].first = value;
+				}
+				return;
+			}
+		}
+		int mid = (start + end) / 2;
+		update(tree, lazy, start, mid, 2 * treeIndx, left, right, type, value);
+		update(tree, lazy, mid + 1, end, 2 * treeIndx + 1, left, right, type, value);
+		tree[treeIndx].first = tree[2 * treeIndx].first + tree[2 * treeIndx + 1].first;
+		tree[treeIndx].second = tree[2 * treeIndx].second + tree[2 * treeIndx + 1].second;
+		return;
+
+	}
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		int nTestCases = scanner.nextInt();
-        int j = 1;
-		while(j <= nTestCases) {
+		int j = 1;
+		while (j <= nTestCases) {
 			int nDim = scanner.nextInt();
 			int nQueries = scanner.nextInt();
-			
+
 			int[] nums = new int[nDim];
-			for(int i = 0; i < nDim; i++) {
+			for (int i = 0; i < nDim; i++) {
 				nums[i] = scanner.nextInt();
 			}
+
+			Pair[] tree = new Pair[4 * nDim];
+			Pair[] lazy = new Pair[4 * nDim];
+			for(int i = 0; i < (4 * nDim); i++) {
+				tree[i] = new Pair();
+				lazy[i] = new Pair();
+			}
 			
-			TreeNode[] tree = new TreeNode[4 * nDim];
-			LazyNode[] lazy = new LazyNode[4 * nDim];
 			buildTree(nums, tree, 0, nDim - 1, 1);
-            
-            System.out.println("Case "+j+":");
-			
-			while(nQueries > 0) {
+
+			System.out.println("Case " + j + ":");
+
+			while (nQueries > 0) {
 				int queryType = scanner.nextInt();
 				int left = scanner.nextInt();
 				int right = scanner.nextInt();
-				if(queryType == 0 || queryType == 1) {
+				if (queryType == 0 || queryType == 1) {
 					int num = scanner.nextInt();
-					if(queryType == 0) {
-						//set x to all the numbers within the range
-						setX(tree, lazy, 0, nDim - 1, left - 1, right - 1, 1, num);
+					if (queryType == 0) {
+						// set x to all the numbers within the range
+						update(tree, lazy, 0, nDim - 1, left - 1, right - 1, 1, num, 2);
 					}
-					if(queryType == 1) {
-						//add x to all numbers within the range
-						increaseByX(tree, lazy, 0, nDim - 1, left - 1, right - 1, 1, num);
-//						TreeNode ans = getSumOfSquares(tree, 0, nDim - 1, left - 1, right - 1, 1);
-//						System.out.println(ans.sumOfSqaures);
-						
+					if (queryType == 1) {
+						// add x to all numbers within the range
+						update(tree, lazy, 0, nDim - 1, left - 1, right - 1, 1, num, 1);
 					}
 				}
-				
-				if(queryType == 2) {
+
+				if (queryType == 2) {
 					// returns sum of squres all the numbers within that range
-					TreeNode ans = getSumOfSquares(tree, 0, nDim - 1, left - 1, right - 1, 1);
-					System.out.println(ans.sumOfSqaures);
+					long ans = getSumOfSquares(tree, lazy, 0, nDim - 1, left - 1, right - 1, 1);
+					System.out.println(ans);
 				}
 				nQueries--;
 			}
-			
-			
+
 			j++;
 		}
 		scanner.close();
