@@ -43,28 +43,18 @@ public class WeightedJobScheduling {
 	private static int getMaxProfit(Job[] jobs, int n) {
 		Arrays.sort(jobs);
 		
-		System.out.println(Arrays.toString(jobs));
+		//System.out.println(Arrays.toString(jobs));
 		int[] dp = new int[n];
 		
 		dp[0] = jobs[0].profit;
 		for(int i = 1; i < n; i++) {
 			int nConflictingTaskIndx = getNonConflictingTaskIndx(jobs, 0, i - 1, jobs[i].startTime);
-			int profit = 0;
+			int profit = jobs[i].profit;
 			if(nConflictingTaskIndx != -1) {
-				profit = jobs[i].profit + dp[nConflictingTaskIndx];
+				profit += dp[nConflictingTaskIndx];
 			}
 			
-//			for(int j = i - 1; j >= 0; j--) {
-//				if(jobs[i].startTime >= jobs[j].finishTime) {
-//					profit = jobs[i].profit + dp[j];
-//					break;
-//				}
-//			}
-			if(profit != 0) {
-				dp[i] = Integer.max(dp[i - 1], profit);
-			} else {
-				dp[i] = dp[i - 1];
-			}
+			dp[i] = Integer.max(profit, dp[i - 1]);
 		}
 		return dp[n - 1];
 	}

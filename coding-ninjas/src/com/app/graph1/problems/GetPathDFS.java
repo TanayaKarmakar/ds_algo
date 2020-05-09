@@ -5,40 +5,40 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GetPathDFS {
-	private static List<Integer> path = null;
+	//private static List<Integer> path = null;
 	
-	private static List<Integer> getPath(int[][] edges, boolean[] visited, int start, int end, int v) {
+	private static boolean getPath(int[][] edges, int start, int end, int v, 
+			List<Integer> path, boolean[] visited) {
 		visited[start] = true;
+		path.add(0, start);
+		if(start == end) {
+			return true;
+		}
 		for(int i = 0; i < v; i++) {
-			if(edges[start][i] == 1) {
-				if(i == end) {
-					if(path == null) {
-						path = new ArrayList<>();
-						path.add(end);
-						path.add(start);
-					}
-					return path;
-				}
-				else if(!visited[i]) {
-					return getPath(edges, visited, i, end, v);
+			if(edges[start][i] == 1 && !visited[i]) {
+				if(getPath(edges, i, end, v, path, visited) == true) {
+					return true;
 				}
 			}
 		}
-		return path;
+		
+		path.remove(0);
+		return false;
 	}
+	
 	
 	private static List<Integer> getPath(int[][] edges, int start, int end, int v) {
 		boolean[] visited = new boolean[v];
+		visited[start] = true;
 		for(int i = 0; i < v; i++) {
-			if(!visited[i] && i == start) {
-				path = getPath(edges, visited, start, end, v);
-				if(path != null && !path.isEmpty()) {
-					if(path.get(path.size() - 1) != start) {
-						path.add(start);
-					}
-					
+			if(!visited[i] && edges[start][i] == 1) {
+				List<Integer> path = new ArrayList<>();
+				getPath(edges, i, end, v, path, visited);
+				if(!path.isEmpty()) {
+					path.add(start);
 					return path;
 				}
+					
 			}
 		}
 		return null;
@@ -61,11 +61,11 @@ public class GetPathDFS {
 		int start = scanner.nextInt();
 		int end = scanner.nextInt();
 
-		getPath(edges, start, end, v);
+		List<Integer> path = getPath(edges, start, end, v);
 		
 		if(path != null && !path.isEmpty()) {
 			for(Integer el: path) {
-				System.out.println(el + " ");
+				System.out.print(el + " ");
 			}
 		}
 		

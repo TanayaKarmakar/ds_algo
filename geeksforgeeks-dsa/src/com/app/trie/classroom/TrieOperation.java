@@ -31,7 +31,7 @@ public class TrieOperation {
 				return false;
 			curr = curr.child[indx];
 		}
-		return true;
+		return curr.isEnd;
 	}
 	
 	private static TrieNode delete(TrieNode root, String key, int currentIndx) {
@@ -64,12 +64,12 @@ public class TrieOperation {
 	}
 
 	public static void main(String[] args) {
-		String[] words = { "bat", "cat", "but", "cut", "kitten", "dog", "kite" };
+		String[] words = { "bat", "cats", "but", "cut", "kitten", "dog", "kite" };
 		TrieNode root = buildTrie(words);
 		
 		System.out.println(search(root, "bat"));
 		System.out.println(search(root, "kitten"));
-		System.out.println(search(root, "cate"));
+		System.out.println(search(root, "cat"));
 		
 		root = delete(root, "kitten", 0);
 		
