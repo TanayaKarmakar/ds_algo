@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 public class LongestContinuousSubArrayWithAbsoluteDiffLeetcode1438 {
 	// Deque based solution
+	// this is better as no sorting is involved
 	private static int getMax2(int[] nums, int d) {
 		Deque<Integer> maxD = new ArrayDeque<>();
 		Deque<Integer> minD = new ArrayDeque<>();
