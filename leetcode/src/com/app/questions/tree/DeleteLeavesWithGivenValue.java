@@ -1,6 +1,6 @@
-package com.app.questions;
+package com.app.questions.tree;
 
-import com.app.questions.BinaryTree.Node;
+import com.app.questions.tree.BinaryTree.Node;
 
 public class DeleteLeavesWithGivenValue {	
 	private static boolean cleanNodes(Node root, int x) {

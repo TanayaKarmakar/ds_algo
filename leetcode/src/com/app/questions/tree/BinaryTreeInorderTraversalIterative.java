@@ -1,7 +1,8 @@
-package com.app.questions;
+package com.app.questions.tree;
 
 import java.util.Stack;
 
+import com.app.questions.BinaryTree;
 import com.app.questions.BinaryTree.Node;
 
 public class BinaryTreeInorderTraversalIterative {

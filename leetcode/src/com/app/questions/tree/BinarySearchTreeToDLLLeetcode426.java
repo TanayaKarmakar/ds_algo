@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.tree;
 
 public class BinarySearchTreeToDLLLeetcode426 {
 	static class Node {

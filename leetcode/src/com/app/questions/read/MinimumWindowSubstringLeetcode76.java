@@ -56,48 +56,7 @@ public class MinimumWindowSubstringLeetcode76 {
 		return len == -1 ? "" : s.substring(left, right + 1);
 	}
 	
-	/*private static String minWindow(String s, String t) {
-		Set<Character> tSet = new HashSet<>();
-		int n = t.length();
-		for(int i = 0; i < n; i++) {
-			tSet.add(t.charAt(i));
-		}
-		
-		Map<Character, Integer> sMap = new HashMap<>();
-		int m = s.length();
-		int i = 0;
-		int start = 0;
-		int minLen = Integer.MAX_VALUE;
-		String ans = "";
-		while(i < m) {
-			if(tSet.contains(s.charAt(i))) {
-				sMap.put(s.charAt(i), 
-						sMap.getOrDefault(s.charAt(i), 0) + 1);
-				while(tSet.size() == sMap.size()) {
-					if(minLen > (i - start) + 1) {
-						minLen = Integer.min(minLen, (i - start) + 1);
-						ans = s.substring(start, start + minLen);
-					}
-					
-					char ch = s.charAt(start);
-					if(sMap.containsKey(ch)) {
-						if(sMap.get(ch) == 1) {
-							sMap.clear();
-							start = i + 1;
-						} else {
-							int val = sMap.get(ch);
-							sMap.put(ch, --val);	
-						}
-					}
-					
-					start++;
-				}
-			}
-			i++;
-			//start = i;
-		}
-		return ans;
-	}*/
+	
 
 	public static void main(String[] args) {
 		String s = "ADOBECODEBANC";
