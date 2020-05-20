@@ -1,9 +1,9 @@
-package com.app.questions;
+package com.app.questions.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.app.questions.BinaryTree.Node;
+import com.app.questions.tree.BinaryTree.Node;
 
 //TBD
 public class BSTIterator {

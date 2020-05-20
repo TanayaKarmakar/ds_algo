@@ -1,9 +1,9 @@
-package com.app.questions;
+package com.app.questions.tree;
 
 import java.util.Queue;
 import java.util.LinkedList;
 
-import com.app.questions.BinaryTree.Node;
+import com.app.questions.tree.BinaryTree.Node;
 
 class PathValue {
 	Node node;

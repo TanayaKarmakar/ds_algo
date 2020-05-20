@@ -1,10 +1,10 @@
-package com.app.questions;
+package com.app.questions.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.app.questions.BinaryTree.Node;
+import com.app.questions.tree.BinaryTree.Node;
 
 public class IterativePreOrderTraversal {
 	private static List<Integer> preorderTraversal(Node root) {
