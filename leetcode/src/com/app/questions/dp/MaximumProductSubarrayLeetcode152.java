@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class MaximumProductSubarrayLeetcode152 {
 	private static int maxProduct(int[] nums) {

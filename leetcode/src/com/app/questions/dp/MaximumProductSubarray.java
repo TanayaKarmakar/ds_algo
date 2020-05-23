@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class MaximumProductSubarray {
 	private static int maxProductSubarray(int[] nums) {

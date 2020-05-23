@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class MinimumPathSumLeetcode64 {
 	private static int minPathSum(int[][] grid) {

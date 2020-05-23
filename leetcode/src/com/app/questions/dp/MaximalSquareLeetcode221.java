@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class MaximalSquareLeetcode221 {
 	private static int maximalSquare(char[][] matrix) {

@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class UniquePathsDP {
 	private static boolean isSafe(int i, int j, int m, int n) {

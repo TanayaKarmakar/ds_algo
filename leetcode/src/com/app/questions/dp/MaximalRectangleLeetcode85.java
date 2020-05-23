@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class MaximalRectangleLeetcode85 {
 	public static int maximalRectangle(char[][] matrix) {
