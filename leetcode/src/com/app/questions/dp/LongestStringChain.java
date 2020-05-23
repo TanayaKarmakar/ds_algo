@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 import java.util.Arrays;
 import java.util.Comparator;

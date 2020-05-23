@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class LongestIncreasingSubsequence {
 	private static int lengthOfLIS(int[] nums) {

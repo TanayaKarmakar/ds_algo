@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class BasicRegexParserLeetcode10 {
 	private static boolean isMatch(String str, String pattern) {

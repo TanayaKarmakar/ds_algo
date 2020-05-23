@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class HouseRobber {
 	private static int getMaxMoney(int[] cost) {

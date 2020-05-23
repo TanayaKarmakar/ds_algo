@@ -23,7 +23,7 @@ public class FindDuplicatesInAnArray {
 	}
 
 	public static void main(String[] args) {
-		int[] arr = { 1, 3, 4, 2, 2 };
+		int[] arr = { 1, 3, 4, 2, 2, 3 };
 		System.out.println("Find Duplicate - " + findDuplicate(arr));
 	}
 

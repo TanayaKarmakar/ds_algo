@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.backtracking;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

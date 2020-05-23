@@ -72,6 +72,13 @@ public class MinimumWindowSubstringLeetcode76 {
 		ans = minWindow(s, t);
 		
 		System.out.println(ans);
+		
+		s = "timetopractice";
+		t = "toc";
+		
+		ans = minWindow(s, t);
+		
+		System.out.println(ans);
 
 	}
 

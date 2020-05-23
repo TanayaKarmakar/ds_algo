@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.dp;
 
 public class LongestCommonSubsequenceLeetcode1143 {
 	private static int lcs(String txt1, String txt2) {

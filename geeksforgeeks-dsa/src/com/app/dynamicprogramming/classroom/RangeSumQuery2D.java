@@ -39,7 +39,7 @@ public class RangeSumQuery2D {
 				{4, 6, 7, 5, 5}, 
 				{2, 4, 8, 9, 4}};
 		
-		int sum = rangeSum(mat, 2, 2, 3, 4);
+		int sum = rangeSum(mat, 1, 1, 2, 2);
 		
 		System.out.println("Sum - " + sum);
 

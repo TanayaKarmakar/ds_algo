@@ -2,24 +2,27 @@ package com.app.questions;
 
 public class MaximumProductSubarrayLeetcode152 {
 	private static int maxProduct(int[] nums) {
-		if(nums.length == 1)
-			return nums[0];
 		int n = nums.length;
-		int min = 0;
-		int max = 0;
-		int totalMax = 0;
-
-		for (int i = 0; i < n; i++) {
-			int num = nums[i];
-			int prevMin = min * num;
-			int prevMax = max * num;
-
-			min = Integer.min(num, Integer.min(prevMax, prevMin));
-			max = Integer.max(num, Integer.max(prevMax, prevMin));
-
-			totalMax = Integer.max(totalMax, max);
+		int[] max = new int[n];
+		int[] min = new int[n];
+		
+		max[0] = nums[0];
+		min[0] = nums[0];
+		
+		for(int i = 1; i < n; i++) {
+			if(nums[i] > 0) {
+				max[i] = Integer.max(nums[i], nums[i] * max[i - 1]);
+				min[i] = Integer.min(nums[i], nums[i] * min[i - 1]);
+			} else {
+				max[i] = Integer.max(nums[i], nums[i] * min[i - 1]);
+				min[i] = Integer.min(nums[i], nums[i] * max[i - 1]);
+			}
 		}
 
+		int totalMax = 0;
+		for(int i = 0; i < n; i++) {
+			totalMax = Integer.max(totalMax, max[i]);
+		}
 		return totalMax;
 	}
 
