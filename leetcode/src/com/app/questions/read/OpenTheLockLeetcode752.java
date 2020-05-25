@@ -20,14 +20,17 @@ public class OpenTheLockLeetcode752 {
 		q.add(null);
 
 		int level = 0;
+		
+		Set<String> visited = new HashSet<>();
 
 		while (!q.isEmpty()) {
 			String curr = q.poll();
 			if (deadEndSet.contains(curr))
 				continue;
 			if (curr == null) {
-				q.add(null);
 				level++;
+				if(q.peek() != null)
+					q.add(null);
 				continue;
 			}
 			if (curr.equals(target))
@@ -36,7 +39,10 @@ public class OpenTheLockLeetcode752 {
 				for (int d = -1; d <= 1; d += 2) {
 					int y = ((curr.charAt(i) - '0') + d + 10) % 10;
 					String temp = curr.substring(0, i) + (y + "") + curr.substring(i + 1);
-					q.add(temp);
+					if(!visited.contains(temp)) {
+						q.add(temp);
+						visited.add(temp);
+					}	
 				}
 			}
 		}
@@ -48,6 +54,13 @@ public class OpenTheLockLeetcode752 {
 		String[] deadends = { "0201", "0101", "0102", "1212", "2002" };
 		int level = openTheLock(str, deadends);
 		
+		System.out.println(level);
+		
+		deadends = new String[] { "8887", "8889", "8878", "8898", "8788", "8988", "7888", "9888" };
+		str = "8888";
+		
+		level = openTheLock(str, deadends);
+
 		System.out.println(level);
 	}
 
