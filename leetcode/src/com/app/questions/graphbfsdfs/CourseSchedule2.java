@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.graphbfsdfs;
 
 import java.util.Arrays;
 import java.util.LinkedList;

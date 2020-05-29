@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.graphbfsdfs;
 
 public class RottingOrangesLeetcode994 {
 

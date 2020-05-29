@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.graphbfsdfs;
 
 public class NumberOfIslands {
 	private static void move(char[][] grid, int i, int j) {
