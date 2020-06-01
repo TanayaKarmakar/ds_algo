@@ -7,40 +7,44 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 class Point implements Comparable<Point> {
-	public int dist;
+	public double dist;
 	public int[] point;
 
 	@Override
 	public int compareTo(Point that) {
-		if (this.dist == that.dist)
+		if(this.dist == that.dist)
 			return 0;
-		else if (this.dist < that.dist)
+		else if(this.dist < that.dist)
 			return -1;
 		else
 			return 1;
 	}
+
+	public String toString() {
+		return point[0] + " " + point[1];
+	}
 }
 
 public class KClosestPointsLeetcode973 {
-	private static int euclideanDistance(int[] point) {
+	private static double euclideanDistance(int[] point) {
 		int sqr1 = point[0] * point[0];
 		int sqr2 = point[1] * point[1];
-		int dist = (int) Math.sqrt((sqr1 + sqr2));
+		double dist = Math.sqrt((sqr1 + sqr2));
 		return dist;
 	}
 
 	private static int[][] kClosestPoints(int[][] grid, int k) {
 		int[][] res = new int[k][2];
 		PriorityQueue<Point> pq = new PriorityQueue<>();
-		for (int[] el : grid) {
-			int dist = euclideanDistance(el);
+		for (int i = 0; i < grid.length; i++) {
+			double dist = euclideanDistance(grid[i]);
 			Point pt = new Point();
 			pt.dist = dist;
-			pt.point = el;
+			pt.point = grid[i];
 			pq.add(pt);
 		}
-			
-		for(int i = 0; i < k; i++) {
+
+		for (int i = 0; i < k; i++) {
 			res[i] = pq.poll().point;
 		}
 		return res;
@@ -61,6 +65,12 @@ public class KClosestPointsLeetcode973 {
 
 		System.out.println(Arrays.deepToString(res));
 
+		points = new int[][] { { 2, 10 }, { -9, -9 }, { 0, 8 }, { -2, -2 }, { 8, 9 }, { -10, -7 }, { -5, 2 },
+				{ -4, -9 } };
+				
+		res = kClosestPoints(points, 7);
+
+		System.out.println(Arrays.deepToString(res));
 	}
 
 }
