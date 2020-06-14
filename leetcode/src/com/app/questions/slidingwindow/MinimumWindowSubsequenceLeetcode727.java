@@ -33,21 +33,23 @@ public class MinimumWindowSubsequenceLeetcode727 {
 	}
 
 	public static void main(String[] args) {
-		String S = "ffynmlzesdshlvugsigobut"
-				+ "gaetsnjlizvqjdpccdylclqcb"
-				+ "ghhixpjihximvhapymfkjxyyx"
-				+ "fwvsfyctmhwmfjyjidnfryiyaj"
-				+ "mtakisaxwglwpqaxaicuprrvxy"
-				+ "bzdxunypzofhpclqiybgniqzsd"
-				+ "eqwrdsfjyfkgmejxfqjkmukvgy"
-				+ "gafwokeoeglanevavyrpduigitm"
-				+ "rimtaslzboauwbluvlfqquocxrz"
-				+ "rbvvplsivujojscytmeyjolvvyz"
-				+ "wizpuhejsdzkfwgqdbwinkxqypa"
-				+ "phktonqwwanapouqyjdbptqfowhe"
-				+ "msnsl";
-		String T = "michmznait";
+//		String S = "ffynmlzesdshlvugsigobut"
+//				+ "gaetsnjlizvqjdpccdylclqcb"
+//				+ "ghhixpjihximvhapymfkjxyyx"
+//				+ "fwvsfyctmhwmfjyjidnfryiyaj"
+//				+ "mtakisaxwglwpqaxaicuprrvxy"
+//				+ "bzdxunypzofhpclqiybgniqzsd"
+//				+ "eqwrdsfjyfkgmejxfqjkmukvgy"
+//				+ "gafwokeoeglanevavyrpduigitm"
+//				+ "rimtaslzboauwbluvlfqquocxrz"
+//				+ "rbvvplsivujojscytmeyjolvvyz"
+//				+ "wizpuhejsdzkfwgqdbwinkxqypa"
+//				+ "phktonqwwanapouqyjdbptqfowhe"
+//				+ "msnsl";
+//		String T = "michmznait";
 		
+		String S = "abcdebdde";
+		String T = "bde";
 		System.out.println(minWindow(S, T));
 
 	}
