@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.linkedlist;
 
 public class LinkedList {
 	public Node head;

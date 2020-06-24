@@ -1,6 +1,6 @@
-package com.app.questions;
+package com.app.questions.linkedlist;
 
-import com.app.questions.LinkedList.Node;
+import com.app.questions.linkedlist.LinkedList.Node;
 
 public class FindIntersectionPoint {
 	private static int length(Node node) {

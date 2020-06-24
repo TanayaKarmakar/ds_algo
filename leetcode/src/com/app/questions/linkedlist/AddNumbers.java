@@ -1,8 +1,8 @@
-package com.app.questions;
+package com.app.questions.linkedlist;
 
 import java.util.Stack;
 
-import com.app.questions.LinkedList.Node;
+import com.app.questions.linkedlist.LinkedList.Node;
 
 /**
  * 

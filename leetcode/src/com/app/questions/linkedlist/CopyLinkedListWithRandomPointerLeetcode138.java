@@ -1,4 +1,4 @@
-package com.app.questions;
+package com.app.questions.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;
