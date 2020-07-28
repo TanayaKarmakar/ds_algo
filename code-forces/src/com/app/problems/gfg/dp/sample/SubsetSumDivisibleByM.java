@@ -3,6 +3,35 @@ package com.app.problems.gfg.dp.sample;
 import java.util.Scanner;
 
 public class SubsetSumDivisibleByM {
+	private static boolean tabulation(int[] nums, int m) {
+		int n = nums.length;
+		if(n > m)
+			return true;
+		
+		boolean[] dp = new boolean[m];
+		
+		for(int i = 0; i < n; i++) {
+			if(dp[0])
+				return true;
+			boolean[] temp = new boolean[m];
+			for(int j = 0; j < m; j++) {
+				if(dp[j]) {
+					if(dp[(j + nums[i]) % m] == false)
+						temp[(j + nums[i]) % m] = true;
+				}
+			}
+			
+			for(int j = 0; j < m; j++) {
+				if(temp[j])
+					dp[j] = true;
+			}
+			
+			dp[nums[i] % m] = true;
+		}
+		
+		return dp[0];
+	}
+	
 	private static boolean recHelper(int[] nums, int m, int indx, int sum) {
 		if((sum != 0 && sum % m == 0) || nums.length == 0)
 			return true;
@@ -31,6 +60,10 @@ public class SubsetSumDivisibleByM {
 		int m = scanner.nextInt();
 		
 		boolean ans = recursion(nums, m);
+		
+		System.out.println(ans);
+		
+		ans = tabulation(nums, m);
 		
 		System.out.println(ans);
 		
