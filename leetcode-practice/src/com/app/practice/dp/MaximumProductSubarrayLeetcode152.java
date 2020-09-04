@@ -15,11 +15,11 @@ public class MaximumProductSubarrayLeetcode152 {
 				min[i] = Integer.min(nums[i], nums[i] * min[i - 1]);
 			} else {
 				max[i] = Integer.max(nums[i], nums[i] * min[i - 1]);
-				min[i] = Integer.max(nums[i], nums[i] * max[i - 1]);
+				min[i] = Integer.min(nums[i], nums[i] * max[i - 1]);
 			}
 		}
 
-		int totalMax = 0;
+		int totalMax = Integer.MIN_VALUE;
 		for (int i = 0; i < n; i++) {
 			totalMax = Integer.max(totalMax, max[i]);
 		}
@@ -29,11 +29,9 @@ public class MaximumProductSubarrayLeetcode152 {
 
 	public static void main(String[] args) {
 		int[] nums = { 2, 3, -2, 4 };
-		
-		int max = maximumProductSubarray(nums);
-		
-		System.out.println(max);
+		int ans = maximumProductSubarray(nums);
 
+		System.out.println(ans);
 	}
 
 }
