@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CombinationSumLeetcode39 {
-	private static void combinationSum(List<List<Integer>> set, List<Integer> item, 
-			int[] nums, int target, int indx) {
+	private static void combinationSum(List<List<Integer>> res, List<Integer> item, int[] candidates, int target,
+			int indx) {
 		if (target == 0) {
-			List<Integer> newList = new ArrayList<>();
-			newList.addAll(item);
-			set.add(newList);
+			res.add(new ArrayList<>(item));
 			return;
 		}
-		if (target < 0)
+		if (target < 0 || indx >= candidates.length)
 			return;
-		for (int i = indx; i < nums.length; i++) {
-			item.add(nums[i]);
-			combinationSum(set, item, nums, target - nums[i], i);
+
+		for (int i = indx; i < candidates.length; i++) {
+			item.add(candidates[i]);
+			combinationSum(res, item, candidates, target - candidates[i], i);
 			item.remove(item.size() - 1);
 		}
 	}
 
-	private static List<List<Integer>> combinationSum(int[] nums, int target) {
+	private static List<List<Integer>> combinationSum(int[] candidates, int target) {
 		List<List<Integer>> res = new ArrayList<>();
 		List<Integer> item = new ArrayList<>();
-		combinationSum(res, item, nums, target, 0);
+
+		combinationSum(res, item, candidates, target, 0);
 		return res;
 	}
 
@@ -35,7 +35,6 @@ public class CombinationSumLeetcode39 {
 		List<List<Integer>> res = combinationSum(nums, target);
 		
 		System.out.println(res);
-
 	}
 
 }

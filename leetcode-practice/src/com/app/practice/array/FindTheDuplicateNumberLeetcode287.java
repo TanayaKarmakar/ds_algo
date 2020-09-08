@@ -26,16 +26,15 @@ public class FindTheDuplicateNumberLeetcode287 {
 
 	public static void main(String[] args) {
 		int[] nums = { 1, 3, 4, 2, 2 };
+		int ans = findDuplicate(nums);
 
-		int duplicate = findDuplicate(nums);
-
-		System.out.println(duplicate);
+		System.out.println(ans);
 
 		nums = new int[] { 3, 1, 3, 4, 2 };
 		
-		duplicate = findDuplicate(nums);
+		ans = findDuplicate(nums);
 
-		System.out.println(duplicate);
+		System.out.println(ans);
 
 	}
 
