@@ -13,7 +13,7 @@ public class AlphaCodeRecurison {
 	}
 
 	public static void main(String[] args) {
-		int[] code = { 1, 0, 2, 0 };
+		int[] code = { 2, 3, 1, 4 };
 		int totalWays = numWays(code, code.length);
 		
 		System.out.println("TotalWays - " + totalWays);

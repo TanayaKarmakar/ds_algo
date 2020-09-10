@@ -16,7 +16,7 @@ class DisjointSet {
 public class LargestComponentSizeByCommonFactorEfficient {
 	
 	private static int largestComponentSize(int[] A) {
-		
+		return 0;
 	}
 
 	public static void main(String[] args) {

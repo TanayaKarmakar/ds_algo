@@ -29,6 +29,10 @@ public class CalculatePower {
 		int pow = calcI(x, n);
 		
 		System.out.println(pow);
+		
+		pow = calc(x, n);
+		
+		System.out.println(pow);
 
 	}
 
