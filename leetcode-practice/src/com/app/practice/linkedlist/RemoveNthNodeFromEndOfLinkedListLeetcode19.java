@@ -4,34 +4,39 @@ import com.app.practice.LinkedList;
 import com.app.practice.LinkedList.ListNode;
 
 public class RemoveNthNodeFromEndOfLinkedListLeetcode19 {
-	private static ListNode removeNthNode(ListNode head, int n) {
+	private static ListNode removeNthFromEnd(ListNode head, int n) {
 		if(head == null)
 			return null;
-		ListNode slowPtr = head;
-		ListNode fastPtr = head;
+
+		int count = 0;
+		ListNode fast = head;
+		ListNode slow = head;
+		while (fast != null && count < n) {
+			count++;
+			fast = fast.next;
+		}
+
 		ListNode prev = head;
-		
-		int count = n;
-		while(count > 0) {
-			fastPtr = fastPtr.next;
-			count--;
+		while (fast != null) {
+			prev = slow;
+			fast = fast.next;
+			slow = slow.next;
 		}
-		
-		
-		while(fastPtr!= null) {
-			prev = slowPtr;
-			fastPtr = fastPtr.next;
-			slowPtr = slowPtr.next;
-		}
-		
-		if(slowPtr == head) {
+
+		if(slow == head)
 			head = head.next;
-			return head;
-		}
-		
-		prev.next = slowPtr.next;
+		else
+			prev.next = slow.next;
 		return head;
-		
+	}
+	
+	private static void display(ListNode head) {
+		ListNode tmp = head;
+		while(tmp != null) {
+			System.out.print(tmp.val + " ");
+			tmp = tmp.next;
+		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -42,17 +47,9 @@ public class RemoveNthNodeFromEndOfLinkedListLeetcode19 {
 		ll.head.next.next.next = new ListNode(4);
 		ll.head.next.next.next.next = new ListNode(5);
 		
-		ll.head = removeNthNode(ll.head, 2);
+		ll.head = removeNthFromEnd(ll.head, 2);
 		
-		ListNode tmp = ll.head;
-		
-		while(tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.next;
-		}
-		
-		System.out.println();
-
+		display(ll.head);
 	}
 
 }

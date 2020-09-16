@@ -8,38 +8,39 @@ public class LongestStringChainLeetcode1048 {
 		int srcIndx = 0;
 		int targetIndx = 0;
 		int count = 0;
-
 		while (targetIndx < target.length()) {
+			if (count > 1)
+				return false;
 			if (source.charAt(srcIndx + count) != target.charAt(targetIndx)) {
 				count++;
-				if (count > 1)
-					return false;
 			} else {
-				targetIndx++;
 				srcIndx++;
+				targetIndx++;
 			}
 		}
 
 		return true;
 	}
 
-	private static int longestStringChain(String[] words) {
-		Arrays.sort(words, Comparator.comparingInt(String::length));
-
+	private static int longestStrChain(String[] words) {
+		Arrays.sort(words, Comparator.comparingInt(String:: length));
 		int n = words.length;
 		int[] dp = new int[n];
 
 		int maxLen = 1;
-
 		dp[n - 1] = 1;
+		
+		Arrays.fill(dp, 1);
 		for (int i = n - 1; i >= 0; i--) {
+			String source = words[i];
 			for (int j = i - 1; j >= 0; j--) {
-				if (words[i].length() == words[j].length())
+				String target = words[j];
+				if (source.length() == target.length())
 					continue;
-				if ((words[i].length() - words[j].length()) > 1)
+				if (source.length() - target.length() > 1)
 					break;
-				if (isPredecessor(words[i], words[j])) {
-					dp[j] = Integer.max(dp[j], 1 + dp[i]);
+				if (isPredecessor(source, target)) {
+					dp[j] = Integer.max(dp[i] + 1, dp[j]);
 				}
 				maxLen = Integer.max(maxLen, dp[j]);
 			}
@@ -51,7 +52,7 @@ public class LongestStringChainLeetcode1048 {
 	public static void main(String[] args) {
 		String[] words = { "a", "b", "ba", "bca", "bda", "bdca" };
 		
-		int maxLen = longestStringChain(words);
+		int maxLen = longestStrChain(words);
 		
 		System.out.println(maxLen);
 	}

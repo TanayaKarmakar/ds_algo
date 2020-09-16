@@ -3,8 +3,8 @@ package com.app.practice.slidingwindow;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class LongestContinuousSubarraywithDiffDLeetcode1438 {
-	private static int maxLength(int[] nums, int limit) {
+public class LongestContinuousArrayWithAbsoluteDiffLessThanOrEqualToLimitLeetcode1438 {
+	private static int longestSubarray(int[] nums, int limit) {
 		Deque<Integer> maxD = new ArrayDeque<>();
 		Deque<Integer> minD = new ArrayDeque<>();
 
@@ -14,16 +14,15 @@ public class LongestContinuousSubarraywithDiffDLeetcode1438 {
 		for (j = 0; j < n; j++) {
 			while (!maxD.isEmpty() && maxD.peekLast() < nums[j])
 				maxD.pollLast();
-			maxD.add(nums[j]);
-
 			while (!minD.isEmpty() && minD.peekLast() > nums[j])
 				minD.pollLast();
+			maxD.add(nums[j]);
 			minD.add(nums[j]);
 
-			if (maxD.peek() - minD.peek() > limit) {
-				if (nums[i] == maxD.peek())
+			if ((int)Math.abs(maxD.peek() - minD.peek()) > limit) {
+				if (maxD.peek() == nums[i])
 					maxD.poll();
-				if (nums[i] == minD.peek())
+				if (minD.peek() == nums[i])
 					minD.poll();
 				i++;
 			}
@@ -36,12 +35,9 @@ public class LongestContinuousSubarraywithDiffDLeetcode1438 {
 		int[] nums = { 8, 2, 4, 7 };
 		int limit = 4;
 		
-		int maxLen = maxLength(nums, limit);
+		int len = longestSubarray(nums, limit);
 		
-		System.out.println(maxLen);
-		
-		
-
+		System.out.println(len);
 	}
 
 }

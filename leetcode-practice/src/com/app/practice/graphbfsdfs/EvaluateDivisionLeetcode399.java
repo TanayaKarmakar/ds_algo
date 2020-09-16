@@ -11,158 +11,113 @@ import java.util.Set;
 class Edge1 {
 	String node;
 	double weight;
-	
+
 	public Edge1(String node, double weight) {
 		this.node = node;
 		this.weight = weight;
 	}
-	
 }
 
 public class EvaluateDivisionLeetcode399 {
-	private static double dfs(Map<String, List<Edge1>> adjList, String v1, String v2, 
-			double val, Set<String> visited) {
-		if(v1.equals(v2)) {
-			return val;
-		}
-		
-		if(visited.contains(v1))
-			return val;
-			
-		visited.add(v1);
-		List<Edge1> edges = adjList.get(v1);
-		for(Edge1 edge: edges) {
-			if(!visited.contains(edge.node)) {
-				double v = dfs(adjList, edge.node, v2, val, visited);
-				if(v != -1)
-					return v * edge.weight;
+	private static double dfs(Map<String, List<Edge1>> map, String source, String dest, Set<String> visited,
+			double weight) {
+		if (source.equals(dest))
+			return weight;
+		if (visited.contains(source))
+			return weight;
+		visited.add(source);
+		List<Edge1> edges = map.get(source);
+		for (Edge1 ed : edges) {
+			if (!visited.contains(ed.node)) {
+				double val = dfs(map, ed.node, dest, visited, weight);
+				if (val != -1)
+					return val * ed.weight;
 			}
+
 		}
+
 		return -1;
 	}
-	
-	private static double[] calcEquation(List<List<String>> equations, double[] values, 
-			List<List<String>> queries) {
+
+	private static double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
 		int n = equations.size();
-		
-		Map<String, List<Edge1>> adjList = new HashMap<>();
-		
-		for(int i = 0; i < n; i++) {
+
+		Map<String, List<Edge1>> map = new HashMap<>();
+		for (int i = 0; i < n; i++) {
 			List<String> equation = equations.get(i);
-			
-			double value = values[i];
-			String v1 = equation.get(0);
-			String v2 = equation.get(1);
-			
-			Edge1 e1 = new Edge1(v2, value);
-			Edge1 e2 = new Edge1(v1, 1 / value);
-			
-			if(!adjList.containsKey(v1)) {
-				List<Edge1> list = new ArrayList<>();
-				list.add(e1);
-				adjList.put(v1, list);
-			} else {
-				adjList.get(v1).add(e1);
+			double weight = values[i];
+
+			if (!map.containsKey(equation.get(0))) {
+				map.put(equation.get(0), new ArrayList<>());
 			}
-			
-			if(!adjList.containsKey(v2)) {
-				List<Edge1> list = new ArrayList<>();
-				list.add(e2);
-				adjList.put(v2, list);
-			} else {
-				adjList.get(v2).add(e2);
+			Edge1 edge1 = new Edge1(equation.get(1), weight);
+			map.get(equation.get(0)).add(edge1);
+
+			if (!map.containsKey(equation.get(1))) {
+				map.put(equation.get(1), new ArrayList<>());
 			}
+			Edge1 edge2 = new Edge1(equation.get(0), 1 / weight);
+			map.get(equation.get(1)).add(edge2);
 		}
-		
-		int n1 = queries.size();
-		double[] res = new double[n1];
-		
-		int i = 0;
-		Set<String> visited = new HashSet<>();
-		
-		for(List<String> query: queries) {
-			String v1 = query.get(0);
-			String v2 = query.get(1);
-			
-			if(v1.equals(v2)) {
-				if(adjList.containsKey(v1))
-					res[i++] = -1;
+
+		double[] res = new double[queries.size()];
+
+		for (int i = 0; i < queries.size(); i++) {
+			List<String> query = queries.get(i);
+			String source = query.get(0);
+			String dest = query.get(1);
+
+			if (source.equals(dest)) {
+				if (map.containsKey(source))
+					res[i] = 1.0;
 				else
-					res[i++] = 1;
-			} else if(!adjList.containsKey(v1) || !adjList.containsKey(v2))
-				res[i++] = -1;
-			else {
-				double value = dfs(adjList, v1, v2, 1, visited);
-				res[i++] = value;
+					res[i] = -1.0;
+			} else if (!map.containsKey(source) || !map.containsKey(dest)) {
+				res[i] = -1.0;
+			} else {
+				Set<String> visited = new HashSet<>();
+				double weight = dfs(map, source, dest, visited, 1.0);
+				res[i] = weight;
 			}
-			
 		}
 		return res;
 	}
 
 	public static void main(String[] args) {
-List<List<String>> equations = new ArrayList<>();
-		
-		List<String> item1 = new ArrayList<>();
-		item1.add("x1");
-		item1.add("x2");
-		
-		equations.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x2");
-		item1.add("x3");
-		
-		equations.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x3");
-		item1.add("x4");
-		
-		equations.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x4");
-		item1.add("x5");
-		equations.add(item1);
-		
-		double[] values = {3.0, 4.0, 5.0, 6.0};
-		
+		List<List<String>> equations = new ArrayList<>();
+		List<String> value = new ArrayList<>();
+		value.add("a");
+		value.add("b");
+		equations.add(value);
+
+		value = new ArrayList<>();
+		value.add("b");
+		value.add("c");
+		equations.add(value);
+
+		int size = equations.size();
+		double[] values = new double[size];
+		values[0] = 2.0;
+		values[1] = 3.0;
+
 		List<List<String>> queries = new ArrayList<>();
-		item1 = new ArrayList<>();
-		
-		item1.add("x1");
-		item1.add("x5");
-		queries.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x5");
-		item1.add("x2");
-		
-		queries.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x2");
-		item1.add("x4");
-		queries.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x2");
-		item1.add("x2");
-		queries.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x2");
-		item1.add("x9");
-		queries.add(item1);
-		
-		item1 = new ArrayList<>();
-		item1.add("x9");
-		item1.add("x9");
-		queries.add(item1);
-		
+		value = new ArrayList<>();
+		value.add("a");
+		value.add("c");
+		queries.add(value);
+
+		value = new ArrayList<>();
+		value.add("b");
+		value.add("a");
+		queries.add(value);
+
+		value = new ArrayList<>();
+		value.add("a");
+		value.add("e");
+		queries.add(value);
+
 		double[] res = calcEquation(equations, values, queries);
-		
+
 		System.out.println(Arrays.toString(res));
 
 	}
