@@ -9,10 +9,12 @@ import com.app.practice.BinaryTree.TreeNode;
 
 public class BinaryTreeInorderTraversalLeetcode94 {
 	private static List<Integer> inorderTraversal(TreeNode root) {
+		if(root == null)
+			return new ArrayList<>();
 		Stack<TreeNode> stack = new Stack<>();
-		List<Integer> list = new ArrayList<>();
 		
-		//stack.push(root);
+		List<Integer> result = new ArrayList<>();
+		
 		while(root != null || !stack.isEmpty()) {
 			while(root != null) {
 				stack.push(root);
@@ -20,28 +22,22 @@ public class BinaryTreeInorderTraversalLeetcode94 {
 			}
 			
 			root = stack.pop();
-			list.add(root.val);
+			result.add(root.val);
 			root = root.right;
 		}
 		
-		return list;
+		return result;
 	}
 
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree();
 		bt.root = new TreeNode(1);
-		bt.root.left = new TreeNode(2);
-		bt.root.left.left = new TreeNode(4);
-		bt.root.right = new TreeNode(3);
-		bt.root.right.left = new TreeNode(5);
-		bt.root.right.left.left = new TreeNode(7);
-		bt.root.right.right = new TreeNode(6);
-		bt.root.right.right.right = new TreeNode(8);
+		bt.root.right = new TreeNode(2);
+		bt.root.right.left = new TreeNode(3);
 		
-		List<Integer> res = inorderTraversal(bt.root);
+		List<Integer> result = inorderTraversal(bt.root);
 		
-		System.out.println(res);
-		
+		System.out.println(result);
 
 	}
 

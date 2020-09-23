@@ -15,13 +15,13 @@ public class HandOfStraightsLeetcode846 {
 				if (!tMap.containsKey(i))
 					return false;
 				int val = tMap.get(i);
-				if (val == 1) {
+				if (val == 1)
 					tMap.remove(i);
-				} else {
+				else
 					tMap.put(i, val - 1);
-				}
 			}
 		}
+
 		return true;
 	}
 
@@ -30,12 +30,14 @@ public class HandOfStraightsLeetcode846 {
 		int W = 3;
 
 		boolean ans = isNStraightHand(nums, W);
+
 		System.out.println(ans);
 
 		nums = new int[] { 1, 2, 3, 4, 5 };
 		W = 4;
 		
 		ans = isNStraightHand(nums, W);
+
 		System.out.println(ans);
 
 	}

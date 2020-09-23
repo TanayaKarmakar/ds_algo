@@ -9,39 +9,36 @@ import com.app.practice.BinaryTree;
 import com.app.practice.BinaryTree.TreeNode;
 
 public class DeleteNodesAndReturnForestLeetcode1110 {
-	private static TreeNode removeNodes(TreeNode root, Set<Integer> set, List<TreeNode> res) {
+	private static TreeNode delNodesRec(TreeNode root, Set<Integer> delNodesSet, List<TreeNode> result) {
 		if (root == null)
 			return null;
-		root.left = removeNodes(root.left, set, res);
-		root.right = removeNodes(root.right, set, res);
+		root.left = delNodesRec(root.left, delNodesSet, result);
+		root.right = delNodesRec(root.right, delNodesSet, result);
 
-		if (set.contains(root.val)) {
+		if (delNodesSet.contains(root.val)) {
 			if (root.left != null)
-				res.add(root.left);
+				result.add(root.left);
 			if (root.right != null)
-				res.add(root.right);
+				result.add(root.right);
 			return null;
 		}
 		return root;
 	}
 
 	private static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
-		Set<Integer> set = new HashSet<>();
+		Set<Integer> delNodesSet = new HashSet<>();
 
-		for (int num : to_delete) {
-			set.add(num);
+		for (int el : to_delete) {
+			delNodesSet.add(el);
 		}
 
-		List<TreeNode> res = new ArrayList<>();
-		removeNodes(root, set, res);
+		List<TreeNode> result = new ArrayList<>();
+		root = delNodesRec(root, delNodesSet, result);
+		if (root!= null && !delNodesSet.contains(root.val)) {
+			result.add(root);
+		}
 
-		if (!set.contains(root.val))
-			res.add(root);
-		return res;
-	}
-	
-	private static void displayForest(List<TreeNode> res) {
-		
+		return result;
 	}
 
 	public static void main(String[] args) {
@@ -54,9 +51,7 @@ public class DeleteNodesAndReturnForestLeetcode1110 {
 		bt.root.right.left = new TreeNode(6);
 		bt.root.right.right = new TreeNode(7);
 
-		List<TreeNode> res = delNodes(bt.root, new int[] { 3, 5 });
-		
-		displayForest(res);
+		List<TreeNode> result = delNodes(bt.root, new int[] { 3, 5 });
 
 	}
 

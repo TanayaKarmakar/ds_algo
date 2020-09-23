@@ -5,19 +5,17 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ZeroOneMatrixLeetcode542 {
-	private static final int[] rDir = { -1, 1, 0, 0 };
-	private static final int[] cDir = { 0, 0, -1, 1 };
+	private static int[][] dir = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
 	private static int[][] updateMatrix(int[][] matrix) {
-		int n = matrix.length;
-		int m = matrix[0].length;
+		int m = matrix.length;
+		int n = matrix[0].length;
 
-		int[][] dist = new int[n][m];
-		boolean[][] visited = new boolean[n][m];
-
+		boolean[][] visited = new boolean[m][n];
 		Queue<int[]> q = new LinkedList<>();
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
 				if (matrix[i][j] == 0) {
 					q.add(new int[] { i, j });
 					visited[i][j] = true;
@@ -26,32 +24,25 @@ public class ZeroOneMatrixLeetcode542 {
 		}
 
 		while (!q.isEmpty()) {
-			int[] pt = q.poll();
+			int[] el = q.poll();
 
 			for (int i = 0; i < 4; i++) {
-				int newRow = pt[0] + rDir[i];
-				int newCol = pt[1] + cDir[i];
-
-				if (newRow < 0 || newRow >= n || newCol < 0 || newCol >= m || visited[newRow][newCol])
+				int newRow = el[0] + dir[i][0];
+				int newCol = el[1] + dir[i][1];
+				if (newRow < 0 || newRow >= m || newCol < 0 || newCol >= n || visited[newRow][newCol])
 					continue;
-				dist[newRow][newCol] = 1 + matrix[pt[0]][pt[1]];
+				matrix[newRow][newCol] = matrix[el[0]][el[1]] + 1;
 				q.add(new int[] { newRow, newCol });
 				visited[newRow][newCol] = true;
 			}
 		}
 
-		return dist;
+		return matrix;
 	}
 
 	public static void main(String[] args) {
-		int[][] matrix = { { 0, 0, 0 }, { 0, 1, 0 }, { 0, 0, 0 } };
+		int[][] matrix = { { 0, 0, 0 }, { 0, 1, 0 }, { 1, 1, 1 } };
 
-		matrix = updateMatrix(matrix);
-
-		System.out.println(Arrays.deepToString(matrix));
-
-		matrix = new int[][] { { 0, 0, 0 }, { 0, 1, 0 }, { 1, 1, 1 } };
-	
 		matrix = updateMatrix(matrix);
 
 		System.out.println(Arrays.deepToString(matrix));

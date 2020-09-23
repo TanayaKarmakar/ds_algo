@@ -4,21 +4,37 @@ import com.app.practice.BinaryTree;
 import com.app.practice.BinaryTree.TreeNode;
 
 public class FlattenBinaryTreeToLinkedListLeetcode114 {
-	private static void flatten(TreeNode root) {
-		if(root == null)
-			return;
-		TreeNode left = root.left;
-		TreeNode right = root.right;
-		
-		flatten(root.left);
-		flatten(root.right);
-		
+	private static TreeNode flattenRec(TreeNode root) {
+		if (root == null)
+			return null;
+		TreeNode left = flattenRec(root.left);
+		TreeNode right = flattenRec(root.right);
+
+		if (left == null) {
+			left = right;
+		} else {
+			TreeNode tmp = left;
+			while (tmp.right != null)
+				tmp = tmp.right;
+			tmp.right = right;
+		}
 		root.left = null;
 		root.right = left;
+		return root;
+	}
+
+	private static void flatten(TreeNode root) {
+		root = flattenRec(root);
+		return;
+	}
+	
+	private static void display(TreeNode root) {
 		TreeNode tmp = root;
-		while(tmp.right != null)
+		while(tmp != null) {
+			System.out.print(tmp.val + " ");
 			tmp = tmp.right;
-		tmp.right = right;
+		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -32,12 +48,8 @@ public class FlattenBinaryTreeToLinkedListLeetcode114 {
 		
 		flatten(bt.root);
 		
-		TreeNode tmp = bt.root;
-		while(tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.right;
-		}
-		System.out.println();
+		display(bt.root);
+
 	}
 
 }

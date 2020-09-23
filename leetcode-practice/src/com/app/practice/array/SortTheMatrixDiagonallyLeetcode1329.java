@@ -8,19 +8,18 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SortTheMatrixDiagonallyLeetcode1329 {
-	private static int[][] diagonalSort(int[][] matrix) {
-		int m = matrix.length;
-		int n = matrix[0].length;
+	private static int[][] diagonalSort(int[][] mat) {
+		int m = mat.length;
+		int n = mat[0].length;
 
 		TreeMap<Integer, List<Integer>> tMap = new TreeMap<>();
 
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				int diff = (i - j);
-				if (!tMap.containsKey(diff)) {
-					tMap.put(diff, new ArrayList<>());
+				if (!tMap.containsKey(i - j)) {
+					tMap.put(i - j, new ArrayList<>());
 				}
-				tMap.get(diff).add(matrix[i][j]);
+				tMap.get(i - j).add(mat[i][j]);
 			}
 		}
 
@@ -30,12 +29,11 @@ public class SortTheMatrixDiagonallyLeetcode1329 {
 
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
-				int diff = (i - j);
-				matrix[i][j] = tMap.get(diff).remove(0);
+				mat[i][j] = tMap.get(i - j).remove(0);
 			}
 		}
 
-		return matrix;
+		return mat;
 	}
 
 	public static void main(String[] args) {
