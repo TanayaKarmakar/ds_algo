@@ -5,32 +5,29 @@ import java.util.Set;
 
 public class ShortestWayToFormStringLeetcode1055 {
 	private static int shortestWay(String source, String target) {
-		int m = source.length();
 		int n = target.length();
-		
-		Set<Character> set = new HashSet<>();
-		for(int i = 0; i < m; i++) {
-			set.add(source.charAt(i));
+		int count = 0;
+		Set<Character> sourceSet = new HashSet<>();
+		for (int i = 0; i < source.length(); i++) {
+			sourceSet.add(source.charAt(i));
 		}
 		
 		for(int i = 0; i < n; i++) {
-			if(!set.contains(target.charAt(i)))
+			if (!sourceSet.contains(target.charAt(i)))
 				return -1;
 		}
-		
-		int count = 0;
+
 		int i = 0;
 		int j = 0;
-		while(j < n) {
-			if(i == m) {
+		while (i < n) {
+			if (j == source.length()) {
 				count++;
-				i = 0;
+				j = 0;
 			}
-			
-			if(source.charAt(i) == target.charAt(j)) {
-				j++;
+			if (j < source.length() && source.charAt(j) == target.charAt(i)) {
+				i++;
 			}
-			i++;	
+			j++;
 		}
 		return count + 1;
 	}
@@ -42,20 +39,7 @@ public class ShortestWayToFormStringLeetcode1055 {
 		int count = shortestWay(source, target);
 		
 		System.out.println(count);
-		
-		source = "abc";
-		target = "acdbc";
-		
-		count = shortestWay(source, target);
-		
-		System.out.println(count);
-		
-		source = "xyz";
-		target = "xzyxz";
-		
-		count = shortestWay(source, target);
-		
-		System.out.println(count);
+
 	}
 
 }

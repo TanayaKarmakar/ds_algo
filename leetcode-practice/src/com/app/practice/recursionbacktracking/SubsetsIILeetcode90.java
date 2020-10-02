@@ -1,44 +1,40 @@
 package com.app.practice.recursionbacktracking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class SubsetsIILeetcode90 {
-	private static void subsetsWithDup(int[] nums, int start, List<Integer> item, List<List<Integer>> res) {
-		res.add(new ArrayList<>(item));
-		
-		for(int i = start; i < nums.length; i++) {
-			if(i > start && nums[i - 1] == nums[i])
+	private static void subsetsWithDup(List<List<Integer>> res, List<Integer> item, int[] nums, int start) {
+		List<Integer> newItem = new ArrayList<>(item);
+		res.add(newItem);
+
+		for (int i = start; i < nums.length; i++) {
+			if (i > start && nums[i - 1] == nums[i])
 				continue;
 			item.add(nums[i]);
-			subsetsWithDup(nums, i + 1, item, res);
+			subsetsWithDup(res, item, nums, i + 1);
 			item.remove(item.size() - 1);
 		}
 	}
-	
+
 	private static List<List<Integer>> subsetsWithDup(int[] nums) {
-		List<Integer> items = new ArrayList<>();
-		List<List<Integer>> res = new ArrayList<>();
 		
-		subsetsWithDup(nums, 0, items, res);
+		Arrays.sort(nums);
+		List<List<Integer>> res = new ArrayList<>();
+		List<Integer> item = new ArrayList<>();
+
+		subsetsWithDup(res, item, nums, 0);
+
 		return res;
 	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
-		
-		int[] nums = new int[n];
-		for(int i = 0; i < n; i++) {
-			nums[i] = scanner.nextInt();
-		}
-		
+		int[] nums = { 1, 2, 2 };
+
 		List<List<Integer>> res = subsetsWithDup(nums);
-		
+
 		System.out.println(res);
-		
-		scanner.close();
 
 	}
 

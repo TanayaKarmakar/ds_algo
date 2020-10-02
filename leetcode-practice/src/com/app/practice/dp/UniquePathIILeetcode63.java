@@ -4,8 +4,11 @@ public class UniquePathIILeetcode63 {
 	private static int uniquePathsWithObstacles(int[][] obstacleGrid) {
 		int m = obstacleGrid.length;
 		int n = obstacleGrid[0].length;
-		int[][] dp = new int[m][n];
 
+		if (obstacleGrid[0][0] == 1)
+			return 0;
+
+		int[][] dp = new int[m][n];
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (obstacleGrid[i][j] == 0) {
@@ -27,11 +30,9 @@ public class UniquePathIILeetcode63 {
 	}
 
 	public static void main(String[] args) {
-		int[][] matrix = { { 0, 0, 0 }, { 0, 1, 0 }, { 0, 0, 0 } };
-		
-		int count = uniquePathsWithObstacles(matrix);
-		
-		System.out.println(count);
+		int[][] grid = { { 0, 0, 0 }, { 0, 1, 0 }, { 0, 0, 0 } };
+		int ans = uniquePathsWithObstacles(grid);
+		System.out.println(ans);
 	}
 
 }

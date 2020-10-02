@@ -5,80 +5,51 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
 public class CampusBikesLeetcode1057 {
-	private static int getDist(int[] e1, int[] e2) {
-		return Math.abs(e1[0] - e2[0]) + Math.abs(e1[1] - e2[1]);
+	private static int calcDist(int[] worker, int[] bike) {
+		return Math.abs(worker[0] - bike[0]) + Math.abs(worker[1] - bike[1]);
 	}
 
 	private static int[] assignBikes(int[][] workers, int[][] bikes) {
-
-		TreeMap<Integer, List<int[]>> map = new TreeMap<>();
-
+		TreeMap<Integer, List<int[]>> distMap = new TreeMap<>();
 		for (int i = 0; i < workers.length; i++) {
 			for (int j = 0; j < bikes.length; j++) {
-				int dist = getDist(workers[i], bikes[j]);
-				if (!map.containsKey(dist)) {
-					map.put(dist, new ArrayList<>());
+				int dist = calcDist(workers[i], bikes[j]);
+				if (!distMap.containsKey(dist)) {
+					distMap.put(dist, new ArrayList<>());
 				}
-				map.get(dist).add(new int[] { i, j });
+				distMap.get(dist).add(new int[] { i, j });
 			}
 		}
-		
-		int[] res = new int[workers.length];
-		Arrays.fill(res, -1);
-		
+
+		int[] ans = new int[workers.length];
+		Arrays.fill(ans, -1);
+
 		Set<Integer> assignedBikes = new HashSet<>();
-		
-		for(Map.Entry<Integer, List<int[]>> entry: map.entrySet()) {
+
+		for (Map.Entry<Integer, List<int[]>> entry : distMap.entrySet()) {
 			List<int[]> values = entry.getValue();
-			
-			for(int[] value: values) {
-				if(res[value[0]] == -1 && !assignedBikes.contains(value[1])) {
-					res[value[0]] = value[1];
-					assignedBikes.add(value[1]);
+			for (int[] el : values) {
+				if (ans[el[0]] == -1 && !assignedBikes.contains(el[1])) {
+					ans[el[0]] = el[1];
+					assignedBikes.add(el[1]);
 				}
 			}
 		}
-		
-		return res;
+
+		return ans;
 	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		int n = scanner.nextInt();
-		
-		int[][] workers = new int[n][2];
-		
-		for(int i = 0; i < workers.length; i++) {
-			int v1 = scanner.nextInt();
-			int v2 = scanner.nextInt();
-			
-			int[] val = new int[] {v1, v2};
-			workers[i] = val;
-		}
-		
-		int m = scanner.nextInt();
-		
-		int[][] bikes = new int[m][2];
-		
-		for(int i = 0; i < bikes.length; i++) {
-			int v1 = scanner.nextInt();
-			int v2 = scanner.nextInt();
-			
-			int[] val = new int[] {v1, v2};
-			bikes[i] = val;
-		}
-		
-		int[] res = assignBikes(workers, bikes);
-		
-		System.out.println(Arrays.toString(res));
-		
-		scanner.close();
+		int[][] workers = { { 0, 0 }, { 1, 1 }, { 2, 0 } };
+		int[][] bikes = { { 1, 0 }, { 2, 2 }, { 2, 1 } };
+
+		int[] ans = assignBikes(workers, bikes);
+
+		System.out.println(Arrays.toString(ans));
 	}
 
 }

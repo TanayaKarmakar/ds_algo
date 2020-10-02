@@ -13,18 +13,20 @@ public class BinaryTreePreorderTraversalLeetcode144 {
 			return new ArrayList<>();
 		List<Integer> res = new ArrayList<>();
 		Stack<TreeNode> stack = new Stack<>();
-		
+
 		stack.push(root);
-		
-		while(!stack.isEmpty()) {
+		while (!stack.isEmpty()) {
 			TreeNode node = stack.pop();
+			//System.out.print(node.val + " ");
+
 			res.add(node.val);
-			
-			if(node.right != null)
+
+			if (node.right != null)
 				stack.push(node.right);
-			if(node.left != null)
+			if (node.left != null)
 				stack.push(node.left);
 		}
+		//System.out.println();
 		
 		return res;
 	}
