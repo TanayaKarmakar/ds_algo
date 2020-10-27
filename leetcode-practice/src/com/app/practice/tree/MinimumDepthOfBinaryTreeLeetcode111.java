@@ -8,33 +8,27 @@ import com.app.practice.BinaryTree.TreeNode;
 
 public class MinimumDepthOfBinaryTreeLeetcode111 {
 	private static int minDepth(TreeNode root) {
-		if(root == null)
+		if (root == null)
 			return 0;
-		int count = 1;
 		Queue<TreeNode> q = new LinkedList<>();
 		q.add(root);
-		q.add(null);
-		
-		while(!q.isEmpty()) {
-			TreeNode curr = q.poll();
-			
-			if(curr == null) {
-				if(q.peek() != null) {
-					q.add(null);
-				}
-				count++;
-				continue;
+		int depth = 1;
+
+		while (!q.isEmpty()) {
+			int size = q.size();
+			for (int i = 0; i < size; i++) {
+				TreeNode node = q.poll();
+				if (node.left == null && node.right == null)
+					return depth;
+				if (node.left != null)
+					q.add(node.left);
+				if (node.right != null)
+					q.add(node.right);
 			}
-			
-			boolean isLeaf = (curr.left == null && curr.right == null);
-			if(isLeaf)
-				return count;
-			if(curr.left != null)
-				q.add(curr.left);
-			if(curr.right != null)
-				q.add(curr.right);
+			depth++;
 		}
-		return count;
+
+		return depth;
 	}
 
 	public static void main(String[] args) {
@@ -45,9 +39,10 @@ public class MinimumDepthOfBinaryTreeLeetcode111 {
 		bt.root.right.left = new TreeNode(15);
 		bt.root.right.right = new TreeNode(7);
 		
-		int count = minDepth(bt.root);
+		int ans = minDepth(bt.root);
 		
-		System.out.println(count);
+		System.out.println(ans);
+
 	}
 
 }

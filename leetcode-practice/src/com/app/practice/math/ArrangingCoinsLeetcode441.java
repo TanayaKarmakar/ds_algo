@@ -2,16 +2,17 @@ package com.app.practice.math;
 
 import java.util.Scanner;
 
-public class ArrangeingCoinsLeetcode441 {
+public class ArrangingCoinsLeetcode441 {
 	private static int arrangeCoins(int n) {
-		int i = 1;
-		
-		while(n >= i) {
-			n = (n - i);
-			i++;
+		int j = 1;
+		int count = 0;
+		while(n >= j) {
+			n = n - j;
+			j++;
+			count++;
 		}
 		
-		return (i - 1);
+		return count;
 	}
 
 	public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class ArrangeingCoinsLeetcode441 {
 		int ans = arrangeCoins(n);
 		
 		System.out.println(ans);
-
+		
 		scanner.close();
 	}
 

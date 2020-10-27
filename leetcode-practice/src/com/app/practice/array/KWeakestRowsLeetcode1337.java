@@ -1,62 +1,52 @@
 package com.app.practice.array;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-class Pair implements Comparable<Pair> {
-	int first;
-	int second;
-
-	public Pair(int first, int second) {
-		this.first = first;
-		this.second = second;
-	}
+class RowComparator implements Comparator<int[]> {
 
 	@Override
-	public int compareTo(Pair o) {
-		int val = o.second - this.second;
-		if (val == 0)
-			return this.first - o.first;
-		return val;
+	public int compare(int[] o1, int[] o2) {
+		if(o1[1] == o2[1])
+			return o1[0] - o2[0];
+		return o2[1] - o1[1];
 	}
+	
 }
 
 public class KWeakestRowsLeetcode1337 {
-	private static int[] kWeakestRows(int[][] matrix, int k) {
-		int m = matrix.length;
-		int n = matrix[0].length;
-
-		Pair[] pairs = new Pair[m];
-
-		for (int i = 0; i < m; i++) {
-			int j = 0;
+	private static int[] kWeakestRows(int[][] mat, int k) {
+		PriorityQueue<int[]> pQ = new PriorityQueue<int[]>(new RowComparator());
+		int m = mat.length;
+		int n = mat[0].length;
+		
+		for(int i = 0; i < m; i++) {
 			int count = 0;
-			while (j < n && matrix[i][j] == 1) {
-				count++;
+			int j = 0;
+			while(j < n && mat[i][j] == 1) {
 				j++;
+				count++;
 			}
-			Pair pair = new Pair(i, (n - count));
-			pairs[i] = pair;
+			int[] el = new int[] {i, (n - count)};
+			pQ.add(el);
 		}
-
-		Arrays.sort(pairs);
+		
 		int[] res = new int[k];
-
-		for (int i = 0; i < k; i++) {
-			res[i] = pairs[i].first;
+		int j = 0;
+		while(j < k && !pQ.isEmpty()) {
+			res[j] = pQ.poll()[0];
+			j++;
 		}
-
+		
 		return res;
 	}
 
 	public static void main(String[] args) {
 		int[][] mat = { { 1, 1, 0, 0, 0 }, { 1, 1, 1, 1, 0 }, { 1, 0, 0, 0, 0 }, { 1, 1, 0, 0, 0 }, { 1, 1, 1, 1, 1 } };
-		int[] res = kWeakestRows(mat, 3);
-
-		System.out.println(Arrays.toString(res));
-
-		mat = new int[][] { { 1, 0, 0, 0 }, { 1, 1, 1, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 } };
-		res = kWeakestRows(mat, 2);
-
+		int k = 3;
+		int[] res = kWeakestRows(mat, k);
+		
 		System.out.println(Arrays.toString(res));
 	}
 

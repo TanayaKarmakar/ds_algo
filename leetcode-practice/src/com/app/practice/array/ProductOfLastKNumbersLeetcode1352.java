@@ -4,37 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ProductOfNumbers {
-	private int prev;
-	private List<Integer> list;
-	
+	List<Integer> list;
+	int product;
+
 	public ProductOfNumbers() {
-		prev = 1;
 		list = new ArrayList<>();
+		product = 1;
+		list.add(1);
 	}
-	
+
 	public void add(int num) {
-		if(num > 0) {
-			prev *= num;
-			list.add(prev);
-		} else {
+		if (num == 0) {
 			list = new ArrayList<>();
-			prev = 1;
+			product = 1;
+			list.add(1);
+		} else {
+			product = product * num;
+			list.add(product);
 		}
 	}
-	
+
 	public int getProduct(int k) {
-		if(k > list.size())
+		int n = list.size();
+		if (k < n)
+			return product / list.get(n - k - 1);
+		else
 			return 0;
-		else {
-			int n = list.size();
-			if(k == list.size())
-				return list.get(n - 1);
-			return list.get(n - 1) / list.get(n - k - 1);	
-		}
 	}
 }
 
-public class ProductOfLastKNumbersLeetcode1352 {
+public class ProductOflastKNumbersLeetcode1352 {
 
 	public static void main(String[] args) {
 		ProductOfNumbers obj = new ProductOfNumbers();
@@ -43,10 +42,13 @@ public class ProductOfLastKNumbersLeetcode1352 {
 		obj.add(2);
 		obj.add(5);
 		obj.add(4);
+
 		System.out.println(obj.getProduct(2));
 		System.out.println(obj.getProduct(3));
 		System.out.println(obj.getProduct(4));
+
 		obj.add(8);
+
 		System.out.println(obj.getProduct(2));
 	}
 

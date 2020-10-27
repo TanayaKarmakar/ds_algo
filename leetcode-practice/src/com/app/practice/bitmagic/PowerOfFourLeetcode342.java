@@ -4,44 +4,39 @@ import java.util.Scanner;
 
 public class PowerOfFourLeetcode342 {
 	private static boolean isPowerOfFour(int num) {
-		if(num == 0)
+		if(num == 1)
 			return true;
-		if((num & 1) == 1 || num < 0)
+		if((num & 1) == 1 || num <= 0)
 			return false;
-		int tmp = num;
-		int count = 0;
-		while(tmp != 0) {
-			count++;
-			tmp = (tmp & (tmp - 1));
+		int setBitCount = 0;
+		int temp = num;
+		while(temp != 0) {
+			setBitCount++;
+			temp = temp & (temp - 1);
 		}
 		
-		if(count > 1)
+		if(setBitCount != 1)
 			return false;
-		int countZeroAfterSetBit = 0;
 		
-		tmp = num;
-		while(tmp != 1) {
-			countZeroAfterSetBit++;
-			tmp = tmp >> 1;
+		int setBitPos = 0;
+		temp = num;
+		while(temp != 1) {
+			temp = temp >> 1;
+			setBitPos++;
 		}
 		
-		if(countZeroAfterSetBit % 2 == 0)
-			return true;
-		else 
-			return false;
+		return setBitPos % 2 == 0;
 	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		boolean ans = isPowerOfFour(n);
 		
-		int num = scanner.nextInt();
-		
-		boolean isPowerOfFour = isPowerOfFour(num);
-		
-		System.out.println(isPowerOfFour);
+		System.out.println(ans);
 		
 		scanner.close();
-
+		
 	}
 
 }

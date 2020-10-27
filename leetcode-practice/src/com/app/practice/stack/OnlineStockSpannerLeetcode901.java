@@ -2,47 +2,51 @@ package com.app.practice.stack;
 
 import java.util.Stack;
 
-class StackNode {
-	int value;
-	int count;
-	
-	public StackNode(int value, int count) {
-		this.value = value;
-		this.count = count;
+class StockElement {
+	int stockValue;
+	int spanValue;
+
+	public StockElement(int stockValue, int spanValue) {
+		this.stockValue = stockValue;
+		this.spanValue = spanValue;
 	}
 }
 
 class StockSpanner {
-	Stack<StackNode> stack1;
+	Stack<StockElement> stack;
 
 	public StockSpanner() {
-		stack1 = new Stack<>();
+		stack = new Stack<>();
 	}
 
 	public int next(int price) {
-		int count = 1;
-		while(!stack1.isEmpty() && stack1.peek().value <= price) {
-			StackNode sNode = stack1.pop();
-			count += sNode.count;
+		int val = 1;
+		if (stack.isEmpty() || stack.peek().stockValue > price) {
+			StockElement stock = new StockElement(price, val);
+			stack.push(stock);
+		} else {
+			while (!stack.isEmpty() && stack.peek().stockValue <= price) {
+				StockElement stock = stack.pop();
+				val += stock.spanValue;
+			}
+			StockElement stock = new StockElement(price, val);
+			stack.push(stock);
 		}
-		
-		stack1.push(new StackNode(price, count));
-		return count;
+		return val;
 	}
 }
 
 public class OnlineStockSpannerLeetcode901 {
 
 	public static void main(String[] args) {
-		StockSpanner stockSpanner = new StockSpanner();
-		int[] nums = { 100, 80, 60, 70, 60, 75, 85 };
-		
-		for(int el: nums) {
-			System.out.print(stockSpanner.next(el) + " ");
-		}
-		
-		System.out.println();
-
+		StockSpanner obj = new StockSpanner();
+		System.out.println(obj.next(100));
+		System.out.println(obj.next(80));
+		System.out.println(obj.next(60));
+		System.out.println(obj.next(70));
+		System.out.println(obj.next(60));
+		System.out.println(obj.next(75));
+		System.out.println(obj.next(85));
 	}
 
 }

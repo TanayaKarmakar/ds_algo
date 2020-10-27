@@ -6,45 +6,46 @@ import java.util.List;
 
 class CombinationIterator {
 	List<String> list;
-	
+	int len;
+
 	public CombinationIterator(String characters, int combinationLength) {
 		list = new ArrayList<>();
-		generateCombination(characters, combinationLength);
+		len = combinationLength;
+		populateList(characters);
 		Collections.sort(list);
 	}
-	
+
 	public String next() {
 		return list.remove(0);
 	}
-	
+
 	public boolean hasNext() {
 		return list.size() > 0;
 	}
-	
-	private void generateCombination(String str, int len) {
+
+	private void populateList(String str) {
 		int n = str.length();
-		int nums = (int)Math.pow(2, n);
-		
-		for(int i = 0; i < nums; i++) {
-			int k = i;
+		int total = (int) Math.pow(2, n);
+		for (int i = 0; i < total; i++) {
+			int temp = i;
 			int count = 0;
-			while(k != 0) {
+			while (temp != 0) {
+				temp = temp & (temp - 1);
 				count++;
-				k = k & (k - 1);
 			}
-			
-			if(count == len) {
-				k = i;
+
+			if (count == len) {
+				temp = i;
 				int j = 0;
-				String newStr = "";
-				while(k != 0) {
-					if((k & 1) == 1) {
-						newStr = newStr + str.charAt(j);
+				StringBuilder sb = new StringBuilder();
+				while (temp != 0) {
+					if ((temp & 1) == 1) {
+						sb.append(str.charAt(j));
 					}
-					k = k >> 1;
 					j++;
+					temp = temp >> 1;
 				}
-				list.add(newStr);
+				list.add(sb.toString());
 			}
 		}
 	}
@@ -53,9 +54,14 @@ class CombinationIterator {
 public class IteratorForCombinationLeetcode1286 {
 
 	public static void main(String[] args) {
-		CombinationIterator obj = new CombinationIterator("abc", 2);
-		System.out.println(obj.next());
-		System.out.println(obj.hasNext());
+		CombinationIterator iterator = new CombinationIterator("abc", 2);
+		
+		System.out.println(iterator.next()); // returns "ab"
+		System.out.println(iterator.hasNext()); // returns true
+		System.out.println(iterator.next()); // returns "ac"
+		System.out.println(iterator.hasNext()); // returns true
+		System.out.println(iterator.next()); // returns "bc"
+		System.out.println(iterator.hasNext()); // returns false
 
 	}
 
