@@ -4,13 +4,13 @@ import com.app.practice.BinaryTree;
 import com.app.practice.BinaryTree.TreeNode;
 
 public class SameTreeLeetcode100 {
-	private static boolean isSame(TreeNode root1, TreeNode root2) {
-		if(root1 == null && root2 == null)
+	private static boolean isSameTree(TreeNode p, TreeNode q) {
+		if(p == null && q == null)
 			return true;
-		if(root1 == null || root2 == null)
+		if(p == null || q == null)
 			return false;
-		return (root1.val == root2.val && isSame(root1.left, root2.left) 
-				&& isSame(root1.right, root2.right));
+		return p.val == q.val && isSameTree(p.left, q.left)
+				&& isSameTree(p.right, q.right);
 	}
 
 	public static void main(String[] args) {
@@ -24,10 +24,9 @@ public class SameTreeLeetcode100 {
 		bt2.root.left = new TreeNode(2);
 		bt2.root.right = new TreeNode(3);
 		
+		boolean ans = isSameTree(bt1.root, bt2.root);
 		
-		boolean isSame = isSame(bt1.root, bt2.root);
-		
-		System.out.println(isSame);
+		System.out.println(ans);
 
 	}
 

@@ -11,10 +11,9 @@ public class PowerOfTwoLeetcode231 {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
+		int num = scanner.nextInt();
 		
-		int n = scanner.nextInt();
-		
-		System.out.println(isPowerOfTwo(n));
+		System.out.println(isPowerOfTwo(num));
 		
 		scanner.close();
 

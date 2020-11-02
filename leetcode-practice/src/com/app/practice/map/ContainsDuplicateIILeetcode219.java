@@ -4,45 +4,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class ContainsDuplicateIILeetcode219 {
 	private static boolean containsNearbyDuplicate(int[] nums, int k) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        int n = nums.length;
-        for(int i = 0; i < n; i++) {
-        	if(!map.containsKey(nums[i])) {
-        		List<Integer> values = new ArrayList<>();
-        		values.add(i);
-        		map.put(nums[i], values);
-        	} else {
-        		int prevIndx = map.get(nums[i])
-        				.get(map.get(nums[i]).size() - 1);
-        		if((i - prevIndx) <= k)
-        			return true;
-        		map.get(nums[i]).add(i);
-        	}
-        }
-        
-        return false;
-    }
+		Map<Integer, List<Integer>> map = new HashMap<>();
+
+		int n = nums.length;
+
+		for (int i = 0; i < n; i++) {
+			if (!map.containsKey(nums[i]))
+				map.put(nums[i], new ArrayList<>());
+			map.get(nums[i]).add(i);
+		}
+
+		for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+			if (entry.getValue().size() > 1) {
+				List<Integer> values = entry.getValue();
+				for (int i = 1; i < values.size(); i++) {
+					if (values.get(i) - values.get(i - 1) <= k)
+						return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		int[] nums = { 1, 2, 3, 1, 2, 3 };
+		int k = 2;
+
+		System.out.println(containsNearbyDuplicate(nums, k));
+
+		nums = new int[] { 1, 2, 3, 1 };
+		k = 3;
 		
-		int n = scanner.nextInt();
-		int[] nums = new int[n];
-		
-		for(int i = 0; i < n; i++) {
-			nums[i] = scanner.nextInt();
-		}
-		
-		int k = scanner.nextInt();
-		
-		boolean ans = containsNearbyDuplicate(nums, k);
-		
-		System.out.println(ans);
-		
-		scanner.close();
+		System.out.println(containsNearbyDuplicate(nums, k));
 	}
+
 }

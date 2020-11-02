@@ -2,7 +2,6 @@ package com.app.practice.array;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 public class IntersectionOfTwoArraysLeetcode349 {
@@ -11,57 +10,41 @@ public class IntersectionOfTwoArraysLeetcode349 {
 			return new int[] {};
 		Arrays.sort(nums1);
 		Arrays.sort(nums2);
-		
+
+		Set<Integer> set = new HashSet<>();
+
 		int m = nums1.length;
 		int n = nums2.length;
-		
-		int i = 0, j = 0;
-		
-		Set<Integer> set = new HashSet<>();
-		
-		while(i < m && j < n) {
-			if(nums1[i] < nums2[j]) {
+
+		int i = 0;
+		int j = 0;
+		while (i < m && j < n) {
+			if (nums1[i] < nums2[j])
 				i++;
-			} else if(nums1[i] > nums2[j]) {
+			else if (nums1[i] > nums2[j])
 				j++;
-			} else {
+			else {
 				set.add(nums1[i]);
 				i++;
 				j++;
 			}
 		}
-		
-		int[] res = new int[set.size()];
+
+		int[] arr = new int[set.size()];
 		i = 0;
-		for(Integer el: set) {
-			res[i++] = el;
+		for (Integer el : set) {
+			arr[i++] = el;
 		}
-		
-		return res;
+
+		return arr;
 	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		int[] nums1 = { 1, 2, 2, 1 };
+		int[] nums2 = { 2, 2 };
 		
-		int m = scanner.nextInt();
-		int[] nums1 = new int[m];
-		
-		for(int i = 0; i < m; i++) {
-			nums1[i] = scanner.nextInt();
-		}
-		
-		int n = scanner.nextInt();
-		int[] nums2 = new int[n];
-		
-		for(int i = 0; i < n; i++) {
-			nums2[i] = scanner.nextInt();
-		}
-		
-		int[] res = intersection(nums1, nums2);
-		
-		System.out.println(Arrays.toString(res));
-		
-		scanner.close();
+		System.out.println(Arrays.toString(intersection(nums1, nums2)));
+
 	}
 
 }
