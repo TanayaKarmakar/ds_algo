@@ -1,44 +1,50 @@
 package com.app.practice.stack;
 
+import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class BackspaceStringCompareLeetcode844 {
-	private static boolean backspaceStringCompare(String S, String T) {
-		Stack<Character> sStack = new Stack<>();
-		Stack<Character> tStack = new Stack<>();
-		
-		int n = S.length();
-		for(int i = 0; i < n; i++) {
-			if(S.charAt(i) == '#') {
-				if(!sStack.isEmpty())
-					sStack.pop();
+	private static String getFinalString(String str) {
+		int n = str.length();
+		Stack<Character> stack = new Stack<>();
+		for (int i = 0; i < n; i++) {
+			if (str.charAt(i) == '#') {
+				if (!stack.isEmpty())
+					stack.pop();
 			} else {
-				sStack.push(S.charAt(i));
+				stack.push(str.charAt(i));
 			}
 		}
 		
-		int m = T.length();
-		for(int i = 0; i < m; i++) {
-			if(T.charAt(i) == '#') {
-				if(!tStack.isEmpty()) {
-					tStack.pop();
-				}
-			} else {
-				tStack.push(T.charAt(i));
-			}
+		StringBuilder sb = new StringBuilder();
+		Iterator<Character> sItr = stack.iterator();
+		while(sItr.hasNext()) {
+			sb.append(sItr.next() + "");
 		}
 		
-		while(!sStack.isEmpty() && !tStack.isEmpty()) {
-			if(sStack.pop() != tStack.pop())
-				return false;
-		}
+		return sb.toString();
+	}
+
+	private static boolean backspaceCompare(String S, String T) {
+		String sFinalString = getFinalString(S);
+		String tFinalString = getFinalString(T);
 		
-		return (sStack.isEmpty() && tStack.isEmpty());
+		System.out.println(sFinalString);
+		System.out.println(tFinalString);
+		
+		return sFinalString.equals(tFinalString);
 	}
 
 	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
 		
-
+		String sText = scanner.nextLine();
+		String tText = scanner.nextLine();
+		
+		System.out.println(backspaceCompare(sText, tText));
+		
+		scanner.close();
 	}
 
 }

@@ -5,29 +5,31 @@ import java.util.Set;
 
 public class ShortestWayToFormStringLeetcode1055 {
 	private static int shortestWay(String source, String target) {
-		int n = target.length();
-		int count = 0;
+		int n = source.length();
+		int m = target.length();
+		
 		Set<Character> sourceSet = new HashSet<>();
-		for (int i = 0; i < source.length(); i++) {
+		for(int i = 0; i < n; i++) {
 			sourceSet.add(source.charAt(i));
 		}
 		
-		for(int i = 0; i < n; i++) {
-			if (!sourceSet.contains(target.charAt(i)))
+		for(int i = 0; i < m; i++) {
+			if(!sourceSet.contains(target.charAt(i)))
 				return -1;
 		}
-
+		
 		int i = 0;
 		int j = 0;
-		while (i < n) {
-			if (j == source.length()) {
+		int count = 0;
+		
+		while(j < m) {
+			if(i == n) {
 				count++;
-				j = 0;
+				i = 0;
 			}
-			if (j < source.length() && source.charAt(j) == target.charAt(i)) {
-				i++;
-			}
-			j++;
+			if(source.charAt(i) == target.charAt(j))
+				j++;
+			i++;
 		}
 		return count + 1;
 	}
@@ -36,9 +38,17 @@ public class ShortestWayToFormStringLeetcode1055 {
 		String source = "abc";
 		String target = "abcbc";
 		
-		int count = shortestWay(source, target);
+		System.out.println(shortestWay(source, target));
 		
-		System.out.println(count);
+		source = "xyz";
+		target = "xzyxz";
+		
+		System.out.println(shortestWay(source, target));
+		
+		source = "abc";
+		target = "acdbc";
+		
+		System.out.println(shortestWay(source, target));
 
 	}
 
