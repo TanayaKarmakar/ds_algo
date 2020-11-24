@@ -6,47 +6,42 @@ import java.util.Queue;
 import com.app.practice.BinaryTree;
 import com.app.practice.BinaryTree.TreeNode;
 
-class SumNode {
-	TreeNode tNode;
-	int digitTillNow;
+class NodeItem {
+	TreeNode node;
+	int numTillNow;
 
-	public SumNode(TreeNode tNode, int digitTillNow) {
-		this.tNode = tNode;
-		this.digitTillNow = digitTillNow;
+	public NodeItem(TreeNode node, int numTillNow) {
+		this.node = node;
+		this.numTillNow = numTillNow;
 	}
 }
 
 public class SumRootToLeafNumbersLeetcode129 {
-
 	private static int sumNumbers(TreeNode root) {
 		if(root == null)
 			return 0;
-		if(root.left == null && root.right == null)
-			return root.val;
-		Queue<SumNode> q = new LinkedList<>();
-		SumNode sNode = new SumNode(root, root.val);
-
-		q.add(sNode);
-
+		Queue<NodeItem> q = new LinkedList<>();
+		q.add(new NodeItem(root, root.val));
 		int sum = 0;
-		while (!q.isEmpty()) {
-			SumNode node = q.poll();
-			TreeNode tNode = node.tNode;
-			int digit = node.digitTillNow;
 
-			if (tNode.left == null && tNode.right == null) {
-				sum += digit;
+		while (!q.isEmpty()) {
+			NodeItem item = q.poll();
+
+			TreeNode node = item.node;
+			int numTillNow = item.numTillNow;
+			if (node.left == null && node.right == null) {
+				sum += numTillNow;
 				continue;
 			}
 
-			if (tNode.left != null) {
-				int newDigit = digit * 10 + tNode.left.val;
-				q.add(new SumNode(tNode.left, newDigit));
+			if (node.left != null) {
+				int newNum = numTillNow * 10 + node.left.val;
+				q.add(new NodeItem(node.left, newNum));
 			}
 
-			if (tNode.right != null) {
-				int newDigit = digit * 10 + tNode.right.val;
-				q.add(new SumNode(tNode.right, newDigit));
+			if (node.right != null) {
+				int newNum = numTillNow * 10 + node.right.val;
+				q.add(new NodeItem(node.right, newNum));
 			}
 		}
 
@@ -55,11 +50,9 @@ public class SumRootToLeafNumbersLeetcode129 {
 
 	public static void main(String[] args) {
 		BinaryTree bt = new BinaryTree();
-		bt.root = new TreeNode(4);
-		bt.root.left = new TreeNode(9);
-		bt.root.right = new TreeNode(0);
-		bt.root.left.left = new TreeNode(5);
-		bt.root.left.right = new TreeNode(1);
+		bt.root = new TreeNode(1);
+		bt.root.left = new TreeNode(2);
+		bt.root.right = new TreeNode(3);
 		
 		int ans = sumNumbers(bt.root);
 		

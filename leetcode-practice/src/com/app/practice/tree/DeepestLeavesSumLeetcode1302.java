@@ -7,25 +7,26 @@ public class DeepestLeavesSumLeetcode1302 {
 	private static int maxDepth = 0;
 	private static int sum = 0;
 
-	private static void deepestLeavesSum(TreeNode root, int currentDepth) {
-		if (root == null)
+	private static void deepestLeavesSum(TreeNode root, int depth) {
+		if (root == null) {
 			return;
+		}
 		boolean isLeaf = (root.left == null && root.right == null);
 		if (isLeaf) {
-			if (maxDepth < currentDepth) {
+			if (depth > maxDepth) {
+				maxDepth = depth;
 				sum = root.val;
-				maxDepth = currentDepth;
-			} else if (currentDepth == maxDepth) {
+			} else if (depth == maxDepth) {
 				sum += root.val;
-			} else {
-				return;
 			}
 		}
-		deepestLeavesSum(root.left, currentDepth + 1);
-		deepestLeavesSum(root.right, currentDepth + 1);
+		deepestLeavesSum(root.left, depth + 1);
+		deepestLeavesSum(root.right, depth + 1);
 	}
 
 	private static int deepestLeavesSum(TreeNode root) {
+		if (root == null)
+			return 0;
 		maxDepth = 0;
 		sum = 0;
 		deepestLeavesSum(root, 0);
@@ -39,14 +40,13 @@ public class DeepestLeavesSumLeetcode1302 {
 		bt.root.right = new TreeNode(3);
 		bt.root.left.left = new TreeNode(4);
 		bt.root.left.right = new TreeNode(5);
-		bt.root.left.left.left = new TreeNode(7);
 		bt.root.right.right = new TreeNode(6);
+		bt.root.left.left.left = new TreeNode(7);
 		bt.root.right.right.right = new TreeNode(8);
 		
-		int sum = deepestLeavesSum(bt.root);
+		int ans = deepestLeavesSum(bt.root);
 		
-		System.out.println(sum);
-		
+		System.out.println(ans);
 
 	}
 

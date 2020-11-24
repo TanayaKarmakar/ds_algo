@@ -9,47 +9,51 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class CampusBikesLeetcode1057 {
-	private static int calcDist(int[] worker, int[] bike) {
-		return Math.abs(worker[0] - bike[0]) + Math.abs(worker[1] - bike[1]);
+	private static int dist(int[] pt1, int[] pt2) {
+		return Math.abs(pt1[0] - pt2[0]) + Math.abs(pt1[1] - pt2[1]);
 	}
 
 	private static int[] assignBikes(int[][] workers, int[][] bikes) {
 		TreeMap<Integer, List<int[]>> distMap = new TreeMap<>();
 		for (int i = 0; i < workers.length; i++) {
 			for (int j = 0; j < bikes.length; j++) {
-				int dist = calcDist(workers[i], bikes[j]);
-				if (!distMap.containsKey(dist)) {
-					distMap.put(dist, new ArrayList<>());
+				int d = dist(workers[i], bikes[j]);
+				if (!distMap.containsKey(d)) {
+					distMap.put(d, new ArrayList<>());
 				}
-				distMap.get(dist).add(new int[] { i, j });
+				distMap.get(d).add(new int[] { i, j });
 			}
 		}
 
-		int[] ans = new int[workers.length];
-		Arrays.fill(ans, -1);
-
 		Set<Integer> assignedBikes = new HashSet<>();
+		int n = workers.length;
+		int[] res = new int[n];
+		Arrays.fill(res, -1);
 
 		for (Map.Entry<Integer, List<int[]>> entry : distMap.entrySet()) {
 			List<int[]> values = entry.getValue();
-			for (int[] el : values) {
-				if (ans[el[0]] == -1 && !assignedBikes.contains(el[1])) {
-					ans[el[0]] = el[1];
-					assignedBikes.add(el[1]);
+
+			for (int[] val : values) {
+				int v1 = val[0];
+				int v2 = val[1];
+				if (res[v1] == -1 && !assignedBikes.contains(v2)) {
+					res[v1] = v2;
+					assignedBikes.add(v2);
 				}
 			}
 		}
 
-		return ans;
+		return res;
 	}
 
 	public static void main(String[] args) {
-		int[][] workers = { { 0, 0 }, { 1, 1 }, { 2, 0 } };
-		int[][] bikes = { { 1, 0 }, { 2, 2 }, { 2, 1 } };
+		int[][] workers = { { 0, 0 }, { 2, 1 } };
+		int[][] bikes = { { 1, 2 }, { 3, 3 } };
+		
+		int[] res = assignBikes(workers, bikes);
+		
+		System.out.println(Arrays.toString(res));
 
-		int[] ans = assignBikes(workers, bikes);
-
-		System.out.println(Arrays.toString(ans));
 	}
 
 }

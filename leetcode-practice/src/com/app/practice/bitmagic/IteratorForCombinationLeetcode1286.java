@@ -5,14 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 class CombinationIterator {
-	List<String> list;
-	int len;
+	private List<String> list;
 
 	public CombinationIterator(String characters, int combinationLength) {
 		list = new ArrayList<>();
-		len = combinationLength;
-		populateList(characters);
-		Collections.sort(list);
+		buildIterator(characters, combinationLength);
 	}
 
 	public String next() {
@@ -23,9 +20,10 @@ class CombinationIterator {
 		return list.size() > 0;
 	}
 
-	private void populateList(String str) {
-		int n = str.length();
-		int total = (int) Math.pow(2, n);
+	private void buildIterator(String chars, int combinationLen) {
+		int len = chars.length();
+		int total = (int) Math.pow(2, len);
+
 		for (int i = 0; i < total; i++) {
 			int temp = i;
 			int count = 0;
@@ -34,34 +32,36 @@ class CombinationIterator {
 				count++;
 			}
 
-			if (count == len) {
+			if (count == combinationLen) {
+				StringBuilder sb = new StringBuilder();
+
 				temp = i;
 				int j = 0;
-				StringBuilder sb = new StringBuilder();
 				while (temp != 0) {
 					if ((temp & 1) == 1) {
-						sb.append(str.charAt(j));
+						sb.append(chars.charAt(j));
 					}
 					j++;
 					temp = temp >> 1;
 				}
+
 				list.add(sb.toString());
 			}
 		}
+		Collections.sort(list);
 	}
 }
 
 public class IteratorForCombinationLeetcode1286 {
 
 	public static void main(String[] args) {
-		CombinationIterator iterator = new CombinationIterator("abc", 2);
-		
-		System.out.println(iterator.next()); // returns "ab"
-		System.out.println(iterator.hasNext()); // returns true
-		System.out.println(iterator.next()); // returns "ac"
-		System.out.println(iterator.hasNext()); // returns true
-		System.out.println(iterator.next()); // returns "bc"
-		System.out.println(iterator.hasNext()); // returns false
+		CombinationIterator cItr = new CombinationIterator("abc", 2);
+		System.out.println(cItr.next());
+		System.out.println(cItr.hasNext());
+		System.out.println(cItr.next());
+		System.out.println(cItr.hasNext());
+		System.out.println(cItr.next());
+		System.out.println(cItr.hasNext());
 
 	}
 

@@ -1,61 +1,37 @@
 package com.app.practice.tree;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import com.app.practice.BinaryTree.TreeNode;
 
 public class MaximumBinaryTreeLeetcode654 {
-	private static int findMax(int[] nums, int start, int end) {
-		int maxIndx = -1;
-		int maxEl = Integer.MIN_VALUE;
-
+	private static int findMaxIndex(int[] nums, int start, int end) {
+		int indx = -1;
+		int maxValue = Integer.MIN_VALUE;
 		for (int i = start; i <= end; i++) {
-			if (nums[i] > maxEl) {
-				maxEl = nums[i];
-				maxIndx = i;
+			if (nums[i] >= maxValue) {
+				maxValue = nums[i];
+				indx = i;
 			}
 		}
-
-		return maxIndx;
+		return indx;
 	}
 
-	private static TreeNode constructRec(int[] nums, int start, int end) {
+	private static TreeNode constructTreeRec(int[] nums, int start, int end) {
 		if (start > end)
 			return null;
-		int indx = findMax(nums, start, end);
+		int indx = findMaxIndex(nums, start, end);
 		TreeNode root = new TreeNode(nums[indx]);
-		root.left = constructRec(nums, start, indx - 1);
-		root.right = constructRec(nums, indx + 1, end);
+		root.left = constructTreeRec(nums, start, indx - 1);
+		root.right = constructTreeRec(nums, indx + 1, end);
 		return root;
+
 	}
 
 	private static TreeNode constructMaximumBinaryTree(int[] nums) {
-		return constructRec(nums, 0, nums.length - 1);
-	}
-
-	private static void levelOrderTraversal(TreeNode root) {
-		Queue<TreeNode> q = new LinkedList<>();
-		q.add(root);
-
-		while (!q.isEmpty()) {
-			TreeNode node = q.poll();
-			System.out.print(node.val + " ");
-
-			if (node.left != null)
-				q.add(node.left);
-			if (node.right != null)
-				q.add(node.right);
-		}
-		System.out.println();
+		return constructTreeRec(nums, 0, nums.length - 1);
 	}
 
 	public static void main(String[] args) {
-		int[] nums = { 3, 2, 1, 6, 0, 5 };
-
-		TreeNode root = constructMaximumBinaryTree(nums);
-		
-		levelOrderTraversal(root);
+		// TODO Auto-generated method stub
 
 	}
 
