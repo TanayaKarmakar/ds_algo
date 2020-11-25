@@ -5,34 +5,36 @@ import java.util.Stack;
 
 public class DailyTemperatureLeetcode739 {
 	private static int[] dailyTemperatures(int[] T) {
+		if(T.length == 0)
+			return new int[] {};
 		int n = T.length;
 		Stack<Integer> stack = new Stack<>();
-		stack.push(n - 1);
 
-		int[] ans = new int[n];
-
-		for (int i = n - 2; i >= 0; i--) {
-			if (T[i] < T[stack.peek()]) {
-				ans[i] = stack.peek() - i;
+		int[] res = new int[n];
+		for (int i = n - 1; i >= 0; i--) {
+			if (stack.isEmpty() || T[i] < T[stack.peek()]) {
+				if (!stack.isEmpty() && T[i] < T[stack.peek()]) {
+					res[i] = stack.peek() - i;
+				}
 			} else {
-				while (!stack.isEmpty() && T[i] > T[stack.peek()]) {
+				while (!stack.isEmpty() && T[i] >= T[stack.peek()]) {
 					stack.pop();
 				}
-
-				if (!stack.isEmpty())
-					ans[i] = stack.peek() - i;
+				if (!stack.isEmpty()) {
+					res[i] = stack.peek() - i;
+				}
 			}
 			stack.push(i);
 		}
 
-		return ans;
+		return res;
 	}
 
 	public static void main(String[] args) {
 		int[] T = { 73, 74, 75, 71, 69, 72, 76, 73 };
-		int[] ans = dailyTemperatures(T);
 		
-		System.out.println(Arrays.toString(ans));
+		System.out.println(Arrays.toString(dailyTemperatures(T)));
+
 	}
 
 }

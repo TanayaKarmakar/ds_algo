@@ -1,19 +1,29 @@
 package com.app.practice.trie;
 
+//class TrieNode {
+//	boolean isEnd;
+//	TrieNode[] children;
+//
+//	public TrieNode() {
+//		children = new TrieNode[26];
+//	}
+//}
+
 class WordDictionary {
 	TrieNode node;
-	
+
+	/** Initialize your data structure here. */
 	public WordDictionary() {
 		node = new TrieNode();
 	}
-	
+
+	/** Adds a word into the data structure. */
 	public void addWord(String word) {
-		if(search(word))
-			return;
+		int n = word.length();
 		TrieNode curr = node;
-		for(int i = 0; i < word.length(); i++) {
+		for (int i = 0; i < n; i++) {
 			int indx = word.charAt(i) - 'a';
-			if(curr.children[indx] == null) {
+			if (curr.children[indx] == null) {
 				curr.children[indx] = new TrieNode();
 			}
 			curr = curr.children[indx];
@@ -21,37 +31,37 @@ class WordDictionary {
 		curr.isEnd = true;
 	}
 
+	/**
+	 * Returns if the word is in the data structure. A word could contain the dot
+	 * character '.' to represent any one letter.
+	 */
 	public boolean search(String word) {
 		TrieNode curr = node;
-		if(search(word, 0, curr))
-			return true;
-		return false;
+		return search(curr, 0, word);
 	}
 	
-	private boolean search(String word, int indx, TrieNode curr) {
+	private boolean search(TrieNode curr, int indx, String word) {
 		if(curr == null)
 			return false;
 		if(curr.isEnd) {
 			if(indx == word.length())
 				return true;
 		}
-		if(indx == word.length())
-			return false;
 		
-		char ch = word.charAt(indx);
-		if(ch == '.') {
+		if(indx == word.length()) {
+			return false;
+		}
+		
+		if(word.charAt(indx) == '.') {
 			for(int i = 0; i < 26; i++) {
 				if(curr.children[i] != null) {
-					boolean isPresent = search(word, indx + 1, curr.children[i]);
-					if(isPresent)
+					if(search(curr.children[i], indx + 1, word))
 						return true;
 				}
-			}
-			
+			}	
 		} else {
-			int i = word.charAt(indx) - 'a';
-			boolean isPresent = search(word, indx + 1, curr.children[i]);
-			if(isPresent)
+			int currentIndx = word.charAt(indx) - 'a';
+			if(search(curr.children[currentIndx], indx + 1, word))
 				return true;
 		}
 		return false;
@@ -65,10 +75,9 @@ public class AddAndSearchWordLeetcode211 {
 		wordDict.addWord("bad");
 		wordDict.addWord("dad");
 		wordDict.addWord("mad");
+		
 		System.out.println(wordDict.search("pad"));
-		System.out.println(wordDict.search("bad"));
-		System.out.println(wordDict.search(".ad"));
-		System.out.println(wordDict.search("b.."));
+
 	}
 
 }
