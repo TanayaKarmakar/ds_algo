@@ -1,54 +1,61 @@
 package com.app.practice.graphbfsdfs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class CourseScheduleIILeetcode210 {
 	private static int[] findOrder(int numCourses, int[][] prerequisites) {
-		int[] output = new int[numCourses];
+		Map<Integer, List<Integer>> adjList = new HashMap<>();
 		int[] inDeg = new int[numCourses];
-		LinkedList<Integer>[] edges = new LinkedList[numCourses];
-		for (int i = 0; i < numCourses; i++) {
-			edges[i] = new LinkedList<Integer>();
-		}
-
-		int e = prerequisites.length;
-		for (int i = 0; i < e; i++) {
-			int[] edge = prerequisites[i];
-			edges[edge[1]].add(edge[0]);
-			inDeg[edge[0]]++;
-		}
-
 		Queue<Integer> q = new LinkedList<>();
-		for (int i = 0; i < numCourses; i++) {
-			if (inDeg[i] == 0)
+
+		for (int[] preReq : prerequisites) {
+			int d = preReq[0];
+			int s = preReq[1];
+
+			if (!adjList.containsKey(s))
+				adjList.put(s, new ArrayList<>());
+			adjList.get(s).add(d);
+			inDeg[d]++;
+		}
+		
+		for(int i = 0; i < inDeg.length; i++) {
+			if(inDeg[i] == 0)
 				q.add(i);
 		}
+		
+		if(q.isEmpty())
+			return new int[] {};
 
-		int k = 0;
+		int[] res = new int[numCourses];
+		int j = 0;
 		while (!q.isEmpty()) {
-			Integer item = q.poll();
-			output[k++] = item;
+			Integer el = q.poll();
+			res[j++] = el;
+			List<Integer> neighbors = adjList.getOrDefault(el, new ArrayList<>());
 
-			LinkedList<Integer> items = edges[item];
-
-			for (Integer el : items) {
-				inDeg[el]--;
-				if (inDeg[el] == 0)
-					q.add(el);
+			for (Integer nei : neighbors) {
+				inDeg[nei]--;
+				if (inDeg[nei] == 0)
+					q.add(nei);
 			}
 		}
 
-		return output;
+		return j == numCourses? res: new int[] {};
 	}
 
 	public static void main(String[] args) {
-		int[][] prerequisites = { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } };
+		int[][] preReq = { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } };
+		
+		int[] res = findOrder(4, preReq);
+		
+		System.out.println(Arrays.toString(res));
 
-		int[] output = findOrder(4, prerequisites);
-
-		System.out.println(Arrays.toString(output));
 	}
 
 }

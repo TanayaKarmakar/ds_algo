@@ -1,51 +1,50 @@
 package com.app.practice.graphbfsdfs;
 
 public class MaxAreaOfIslandLeetcode695 {
-	private static int count = 0;
+	private static int maxCount = 0;
+	private static int currentCount = 0;
 
-	private static void dfs(int[][] grid, int i, int j, boolean[][] visited) {
-		if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0 || visited[i][j] == true)
+	private static void dfs(int[][] grid, boolean[][] visited, int i, int j) {
+		if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == 0 || visited[i][j])
 			return;
-		count++;
+		currentCount++;
 		visited[i][j] = true;
-		dfs(grid, i + 1, j, visited);
-		dfs(grid, i - 1, j, visited);
-		dfs(grid, i, j + 1, visited);
-		dfs(grid, i, j - 1, visited);
+		dfs(grid, visited, i + 1, j);
+		dfs(grid, visited, i - 1, j);
+		dfs(grid, visited, i, j - 1);
+		dfs(grid, visited, i, j + 1);
 	}
 
 	private static int maxAreaOfIsland(int[][] grid) {
+		if (grid.length == 0)
+			return 0;
 		int m = grid.length;
 		int n = grid[0].length;
 
-		int maxCount = 0;
 		boolean[][] visited = new boolean[m][n];
+
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (grid[i][j] == 1 && !visited[i][j]) {
-					count = 0;
-					dfs(grid, i, j, visited);
-					maxCount = Integer.max(maxCount, count);
+					currentCount = 0;
+					dfs(grid, visited, i, j);
+					maxCount = Integer.max(currentCount, maxCount);
 				}
 			}
 		}
+
 		return maxCount;
 	}
 
 	public static void main(String[] args) {
-		int[][] grid = { { 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 }, 
-				{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
-				{ 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-				{ 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0 },
-				{ 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0 }, 
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 }, 
-				{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 } };
-		
-		int maxCount = maxAreaOfIsland(grid);
-		
-		System.out.println(maxCount);
+		int[][] grid = { { 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+				{ 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0 },
+				{ 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 } };
 
+		int maxArea = maxAreaOfIsland(grid);
+
+		System.out.println(maxArea);
 	}
 
 }

@@ -1,47 +1,47 @@
 package com.app.practice.strings;
 
+import java.util.Scanner;
+
 public class PalindromicSubstringsLeetcode647 {
 	private static int countSubstrings(String s) {
+		if(s.length() == 0)
+			return 0;
 		int count = 0;
 		int n = s.length();
-		
-		int i = 0;
-		while(i < n) {
+
+		for (int i = 0; i < n; i++) {
 			int left = i;
 			int right = i;
-			
-			while(left >= 0 && right < n && 
-					s.charAt(left) == s.charAt(right)) {
+
+			while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
 				count++;
 				left--;
 				right++;
 			}
-			
+
 			left = i - 1;
 			right = i;
-			
-			while(left >= 0 && right < n && 
-					s.charAt(left) == s.charAt(right)) {
+
+			while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
 				count++;
 				left--;
 				right++;
 			}
-			i++;
 		}
+		
 		return count;
 	}
 
 	public static void main(String[] args) {
-		String str = "abc";
-		int count = countSubstrings(str);
+		Scanner scanner = new Scanner(System.in);
 		
-		System.out.println(count);
+		String txt = scanner.nextLine();
 		
-		str = "aaa";
+		int ans = countSubstrings(txt);
 		
-		count = countSubstrings(str);
+		System.out.println(ans);
 		
-		System.out.println(count);
+		scanner.close();
 
 	}
 

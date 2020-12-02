@@ -7,10 +7,12 @@ public class PartitionListLeetcode86 {
 	private static ListNode partition(ListNode head, int x) {
 		if (head == null || head.next == null)
 			return head;
-		ListNode lt = new ListNode(Integer.MAX_VALUE);
-		ListNode ge = new ListNode(Integer.MAX_VALUE);
-		ListNode ltTmp = lt;
-		ListNode geTmp = ge;
+		ListNode ltX = new ListNode(Integer.MIN_VALUE);
+		ListNode geX = new ListNode(Integer.MIN_VALUE);
+
+		ListNode tmp1 = ltX;
+		ListNode tmp2 = geX;
+
 		ListNode tmp = head;
 
 		while (tmp != null) {
@@ -19,31 +21,22 @@ public class PartitionListLeetcode86 {
 			curr.next = null;
 
 			if (curr.val < x) {
-				ltTmp.next = curr;
-				ltTmp = ltTmp.next;
+				tmp1.next = curr;
+				tmp1 = tmp1.next;
 			} else {
-				geTmp.next = curr;
-				geTmp = geTmp.next;
+				tmp2.next = curr;
+				tmp2 = tmp2.next;
 			}
 		}
 
-		lt = lt.next;
-		ge = ge.next;
-		
-		if(lt == null)
-			return ge;
+		ltX = ltX.next;
+		geX = geX.next;
 
-		ltTmp.next = ge;
-		return lt;
-	}
-
-	private static void displayList(ListNode head) {
-		ListNode tmp = head;
-		while (tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.next;
-		}
-		System.out.println();
+		if(ltX != null)
+			tmp1.next = geX;
+		else
+			ltX = geX;
+		return ltX;
 	}
 
 	public static void main(String[] args) {
@@ -54,10 +47,18 @@ public class PartitionListLeetcode86 {
 		ll.head.next.next.next = new ListNode(2);
 		ll.head.next.next.next.next = new ListNode(5);
 		ll.head.next.next.next.next.next = new ListNode(2);
-
-		ll.head = partition(ll.head, 3);
-		displayList(ll.head);
-
+		
+		int x = 3;
+		
+		ListNode res = partition(ll.head, x);
+		
+		ListNode tmp = res;
+		while(tmp != null) {
+			System.out.print(tmp.val + " ");
+			tmp = tmp.next;
+		}
+		
+		System.out.println();
 	}
 
 }

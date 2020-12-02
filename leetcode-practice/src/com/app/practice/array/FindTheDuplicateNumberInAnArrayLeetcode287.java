@@ -1,6 +1,6 @@
 package com.app.practice.array;
 
-public class FindTheDuplicateNumberLeetcode287 {
+public class FindTheDuplicateNumberInAnArrayLeetcode287 {
 	private static int findDuplicate(int[] nums) {
 		int slow = 0;
 		int fast = 0;
@@ -27,15 +27,8 @@ public class FindTheDuplicateNumberLeetcode287 {
 	public static void main(String[] args) {
 		int[] nums = { 1, 3, 4, 2, 2 };
 		int ans = findDuplicate(nums);
-
-		System.out.println(ans);
-
-		nums = new int[] { 3, 1, 3, 4, 2 };
 		
-		ans = findDuplicate(nums);
-
 		System.out.println(ans);
-
 	}
 
 }
