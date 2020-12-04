@@ -5,34 +5,38 @@ import com.app.practice.LinkedList.ListNode;
 
 public class SwapNodesInPairsLeetcode24 {
 	private static ListNode swapPairs(ListNode head) {
-		ListNode prev = head;
-		ListNode curr;
-		ListNode next;
-		ListNode prevPrev = null;
+		if (head == null || head.next == null)
+			return head;
 
-		while (prev != null && prev.next != null) {
-			curr = prev.next;
+		ListNode prev = null;
+		ListNode curr = head;
+		ListNode next = null;
+		ListNode nextNext = null;
+
+		while (curr != null && curr.next != null) {
 			next = curr.next;
-			curr.next = prev;
-			prev.next = next;
-			if (prevPrev != null)
-				prevPrev.next = curr;
-
-			if (prev == head)
-				head = curr;
-			prevPrev = prev;
-			prev = next;
+			nextNext = next.next;
+			next.next = curr;
+			curr.next = nextNext;
+			if(curr == head) {
+				head = next;
+			}
+			if (prev != null)
+				prev.next = next;
+			prev = curr;
+			curr = nextNext;
 		}
-
+		
 		return head;
 	}
 	
 	private static void display(ListNode head) {
-		ListNode tmp = head;
-		while(tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.next;
+		ListNode temp = head;
+		while(temp != null) {
+			System.out.print(temp.val + " ");
+			temp = temp.next;
 		}
+		
 		System.out.println();
 	}
 
@@ -42,11 +46,12 @@ public class SwapNodesInPairsLeetcode24 {
 		ll.head.next = new ListNode(2);
 		ll.head.next.next = new ListNode(3);
 		ll.head.next.next.next = new ListNode(4);
-		ll.head.next.next.next.next = new ListNode(5);
+		//ll.head.next.next.next.next = new ListNode(5);
 		
 		ll.head = swapPairs(ll.head);
 		
 		display(ll.head);
+
 	}
 
 }

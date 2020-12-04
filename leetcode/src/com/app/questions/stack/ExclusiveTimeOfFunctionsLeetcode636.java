@@ -1,4 +1,4 @@
-package com.app.practice.stack;
+package com.app.questions.stack;
 
 import java.util.Arrays;
 import java.util.List;
