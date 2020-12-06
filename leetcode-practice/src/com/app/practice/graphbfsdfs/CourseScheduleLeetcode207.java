@@ -1,63 +1,62 @@
 package com.app.practice.graphbfsdfs;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class CourseScheduleLeetcode207 {
-	private static boolean canFinish(int[][] prerequisites, int numCourses) {
-		int n = prerequisites.length;
-		LinkedList<Integer>[] edges = new LinkedList[numCourses];
+	private static boolean canFinish(int numCourses, int[][] prerequisites) {
+		Map<Integer, List<Integer>> adjList = new HashMap<>();
 		int[] inDeg = new int[numCourses];
-
-		for (int i = 0; i < numCourses; i++) {
-			edges[i] = new LinkedList<>();
-		}
-
-		for (int i = 0; i < n; i++) {
-			int[] item = prerequisites[i];
-			edges[item[1]].add(item[0]);
-			inDeg[item[0]]++;
+		for (int i = 0; i < prerequisites.length; i++) {
+			int[] node = prerequisites[i];
+			int source = node[1];
+			int dest = node[0];
+			if (!adjList.containsKey(source)) {
+				adjList.put(source, new ArrayList<>());
+			}
+			adjList.get(source).add(dest);
+			inDeg[dest]++;
 		}
 
 		Queue<Integer> q = new LinkedList<>();
 		int count = 0;
-		for (int i = 0; i < numCourses; i++) {
+		for (int i = 0; i < inDeg.length; i++) {
 			if (inDeg[i] == 0) {
 				q.add(i);
+				count++;
 			}
 		}
 
-		if (q.isEmpty())
-			return false;
-
 		while (!q.isEmpty()) {
-			int node = q.poll();
-			count++;
+			Integer node = q.poll();
+			List<Integer> nodes = adjList.getOrDefault(node, new ArrayList<>());
 
-			LinkedList<Integer> nodes = edges[node];
-			for (int el : nodes) {
-				inDeg[el]--;
-				if (inDeg[el] == 0) {
-					q.add(el);
+			for (Integer n : nodes) {
+				inDeg[n]--;
+				if (inDeg[n] == 0) {
+					q.add(n);
+					count++;
 				}
 			}
 		}
 
-		return count == numCourses;
+		return count == numCourses ? true : false;
 	}
 
 	public static void main(String[] args) {
-		int[][] prerequisites = { { 0, 1 } };
+		int numCourses = 2;
+		int[][] prerequisites = { { 1, 0 } };
 
-		boolean canFinish = canFinish(prerequisites, 2);
+		System.out.println(canFinish(numCourses, prerequisites));
 
-		System.out.println(canFinish);
-
+		numCourses = 2;
 		prerequisites = new int[][] { { 1, 0 }, { 0, 1 } };
 		
-		canFinish = canFinish(prerequisites, 2);
-
-		System.out.println(canFinish);
+		System.out.println(canFinish(numCourses, prerequisites));
 
 	}
 

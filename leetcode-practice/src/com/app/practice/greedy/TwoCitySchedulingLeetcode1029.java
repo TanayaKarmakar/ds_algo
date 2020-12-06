@@ -5,35 +5,34 @@ import java.util.Arrays;
 public class TwoCitySchedulingLeetcode1029 {
 	private static int twoCitySchedCost(int[][] costs) {
 		int n = costs.length;
-		int[][] diffArr = new int[n][3];
+		int[][] diffArr = new int[costs.length][3];
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < costs.length; i++) {
 			int diff = costs[i][0] - costs[i][1];
-			diffArr[i] = new int[3];
 			diffArr[i][0] = costs[i][0];
 			diffArr[i][1] = costs[i][1];
 			diffArr[i][2] = diff;
 		}
 
-		Arrays.sort(diffArr, (e1, e2) -> (e1[2] - e2[2]));
+		Arrays.sort(diffArr, (e1, e2) -> e1[2] - e2[2]);
 
-		int total = 0;
+		int totalCost = 0;
 		for (int i = 0; i < n / 2; i++) {
-			total += diffArr[i][0];
+			totalCost += diffArr[i][0];
 		}
 
 		for (int i = n / 2; i < n; i++) {
-			total += diffArr[i][1];
+			totalCost += diffArr[i][1];
 		}
 
-		return total;
+		return totalCost;
 	}
 
 	public static void main(String[] args) {
-		int[][] costs = { { 10, 20 }, { 30, 200 }, { 400, 50 }, { 30, 20 } };
-		int total = twoCitySchedCost(costs);
+		int[][] costs = { { 259, 770 }, { 448, 54 }, { 926, 667 }, { 184, 139 }, { 840, 118 }, { 577, 469 } };
+		int totalCost = twoCitySchedCost(costs);
 		
-		System.out.println(total);
+		System.out.println(totalCost);
 	}
 
 }
