@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="array/src"/>
+	<classpathentry kind="src" path="code-forces/src"/>
+	<classpathentry kind="src" path="coding-ninjas/src"/>
+	<classpathentry kind="src" path="daily-coding-problem/src"/>
+	<classpathentry kind="src" path="design-patterns/src"/>
+	<classpathentry kind="src" path="dynamic-programming/src"/>
+	<classpathentry kind="src" path="elements-of-programming-interviews/src"/>
+	<classpathentry kind="src" path="geeksforgeeks-dsa/src"/>
+	<classpathentry kind="src" path="graph/src"/>
+	<classpathentry kind="src" path="leetcode-practice/src"/>
+	<classpathentry kind="src" path="leetcode/src"/>
+	<classpathentry excluding="com/app/list/" kind="src" path="linked-list/src"/>
+	<classpathentry kind="src" path="linked-list/src/com/app/list"/>
+	<classpathentry kind="src" path="strings/src"/>
+	<classpathentry kind="src" path="tree/src"/>
+	<classpathentry kind="src" path="union-find/src"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/json-path-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/json-path-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/rest-assured-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/rest-assured-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/rest-assured-common-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/rest-assured-common-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/xml-path-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/docs/xml-path-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/json-path-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/json-path-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/rest-assured-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/rest-assured-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/rest-assured-common-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/rest-assured-common-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/xml-path-4.1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/docs/xml-path-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2-dist/rest-assured-4.1.2.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1-1.2-dist/rest-assured-4.1.2.jar"/>
+	<classpathentry kind="lib" path="daily-coding-problem/lib/rest-assured-4.1.2.jar"/>
+	<classpathentry kind="lib" path="union-find/lib/algs4.jar"/>
+	<classpathentry kind="lib" path="union-find/lib/stdlib.jar"/>
+	<classpathentry kind="output" path="array/bin"/>
+</classpath>

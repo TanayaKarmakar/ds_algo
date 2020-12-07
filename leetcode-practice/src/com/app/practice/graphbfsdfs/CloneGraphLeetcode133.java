@@ -28,49 +28,62 @@ class Node {
 }
 
 public class CloneGraphLeetcode133 {
-	private static void dfs2(Map<Integer, Node> map, Node node, Set<Integer> visited) {
-		List<Node> neighbors = node.neighbors;
-		Node newNode = map.get(node.val);
+	private static void dfs1(Node node, Set<Integer> visited, Map<Node, Node> nodeMap) {
+		Node newNode = new Node(node.val);
 		visited.add(node.val);
-		for(Node nei: neighbors) {
-			Node newNei = map.get(nei.val);
-			newNode.neighbors.add(newNei);
-		}
+		nodeMap.put(node, newNode);
 		
+		List<Node> neighbors = node.neighbors;
 		for(Node nei: neighbors) {
-			if(!visited.contains(nei.val))
-				dfs2(map, nei, visited);
+			if(!visited.contains(nei.val)) {
+				dfs1(nei, visited, nodeMap);
+			}
 		}
 	}
 	
-	private static void dfs1(Map<Integer, Node> map, Node node, Set<Integer> visited) {
-		Node newNode = new Node(node.val);
-		map.put(node.val, newNode);
+	private static void dfs2(Node node, Set<Integer> visited, Map<Node, Node> nodeMap) {
 		visited.add(node.val);
-		
 		List<Node> neighbors = node.neighbors;
 		for(Node nei: neighbors) {
-			if(!visited.contains(nei.val))
-				dfs1(map, nei, visited);
+			nodeMap.get(node).neighbors.add(nodeMap.get(nei));
+		}
+		
+		for(Node nei: neighbors) {
+			if(!visited.contains(nei.val)) {
+				dfs2(nei, visited, nodeMap);
+			}
 		}
 	}
 	
 	private static Node cloneGraph(Node node) {
-		Map<Integer, Node> map = new HashMap<>();
-		
+		if(node == null)
+			return null;
+		if(node.neighbors.size() == 0)
+			return new Node(node.val);
+		Map<Node, Node> nodeMap = new HashMap<>();
+		//map all node with new copy
 		Set<Integer> visited = new HashSet<>();
-		
-		dfs1(map, node, visited);
+		dfs1(node, visited, nodeMap);
 		
 		visited.clear();
 		
-		dfs2(map, node, visited);
+		dfs2(node, visited, nodeMap);
 		
-		return map.get(node.val);
+		/*for(Map.Entry<Node, Node> entry: nodeMap.entrySet()) {
+			List<Node> newNeighbors = new ArrayList<>();
+			Node origNode = entry.getKey();
+			for(Node origNei: origNode.neighbors) {
+				newNeighbors.add(nodeMap.get(origNei));
+			}
+			Node newNode = entry.getValue();
+			newNode.neighbors = newNeighbors;
+			nodeMap.put(origNode, newNode);
+		}*/
+		return nodeMap.get(node);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
