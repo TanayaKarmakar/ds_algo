@@ -9,13 +9,13 @@ public class FlattenBinaryTreeToLinkedListLeetcode114 {
 			return null;
 		TreeNode left = flattenRec(root.left);
 		TreeNode right = flattenRec(root.right);
-
 		if (left == null) {
 			left = right;
 		} else {
 			TreeNode tmp = left;
-			while (tmp.right != null)
+			while (tmp.right != null) {
 				tmp = tmp.right;
+			}
 			tmp.right = right;
 		}
 		root.left = null;
@@ -24,17 +24,9 @@ public class FlattenBinaryTreeToLinkedListLeetcode114 {
 	}
 
 	private static void flatten(TreeNode root) {
+		if(root == null)
+			return;
 		root = flattenRec(root);
-		return;
-	}
-	
-	private static void display(TreeNode root) {
-		TreeNode tmp = root;
-		while(tmp != null) {
-			System.out.print(tmp.val + " ");
-			tmp = tmp.right;
-		}
-		System.out.println();
 	}
 
 	public static void main(String[] args) {
@@ -48,7 +40,13 @@ public class FlattenBinaryTreeToLinkedListLeetcode114 {
 		
 		flatten(bt.root);
 		
-		display(bt.root);
+		TreeNode tmp = bt.root;
+		
+		while(tmp != null) {
+			System.out.print(tmp.val + " ");
+			tmp = tmp.right;
+		}
+		System.out.println();
 
 	}
 

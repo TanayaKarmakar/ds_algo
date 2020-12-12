@@ -18,7 +18,7 @@ public class PathSumIIILeetcode437 {
 	private static int pathSum(TreeNode root, int sum) {
 		if (root == null)
 			return 0;
-		return pathSum2(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+		return pathSum(root.left, sum) + pathSum(root.right, sum) + pathSum2(root, sum);
 	}
 
 	public static void main(String[] args) {
@@ -28,14 +28,15 @@ public class PathSumIIILeetcode437 {
 		bt.root.right = new TreeNode(-3);
 		bt.root.left.left = new TreeNode(3);
 		bt.root.left.right = new TreeNode(2);
-		bt.root.right.left = new TreeNode(11);
 		bt.root.left.left.left = new TreeNode(3);
-		bt.root.left.left.left = new TreeNode(-2);
+		bt.root.left.left.right = new TreeNode(-2);
 		bt.root.left.right.right = new TreeNode(1);
-		
-		int sum = 8;
-		int pathSumCount = pathSum(bt.root, sum);
-		System.out.println(pathSumCount);
+		bt.root.right.right = new TreeNode(11);
+
+		int count = pathSum(bt.root, 8);
+
+		System.out.println(count);
+
 	}
 
 }

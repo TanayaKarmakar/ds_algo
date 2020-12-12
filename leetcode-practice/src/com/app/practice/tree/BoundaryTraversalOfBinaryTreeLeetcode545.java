@@ -12,31 +12,31 @@ import com.app.practice.BinaryTree.TreeNode;
 
 public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 	private static List<Integer> boundaryOfBinaryTree(TreeNode root) {
-		if(root == null)
+		if (root == null)
 			return new ArrayList<>();
-		List<Integer> result = new ArrayList<>();
-
-		result.add(root.val);
-		leftBoundary(root.left, result);
-		leaves(root.left, result);
-		leaves(root.right, result);
-		rightBoundary(root.right, result);
-
-		return result;
+		List<Integer> res = new ArrayList<>();
+		res.add(root.val);
+		leftBoundary(root.left, res);
+		leaves(root.left, res);
+		leaves(root.right, res);
+		rightBoundary(root.right, res);
+		return res;
 	}
 
-	private static void leaves(TreeNode root, List<Integer> result) {
+	private static void leaves(TreeNode root, List<Integer> res) {
 		if(root == null)
 			return;
 		Stack<TreeNode> stack = new Stack<>();
-
 		stack.push(root);
 
 		while (!stack.isEmpty()) {
 			TreeNode node = stack.pop();
 
-			if (node.left == null && node.right == null)
-				result.add(node.val);
+			if (node.left == null && node.right == null) {
+				res.add(node.val);
+				continue;
+			}
+				
 
 			if (node.right != null)
 				stack.push(node.right);
@@ -45,11 +45,10 @@ public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 		}
 	}
 
-	private static void leftBoundary(TreeNode root, List<Integer> result) {
+	private static void leftBoundary(TreeNode root, List<Integer> res) {
 		if(root == null || (root.left == null && root.right == null))
 			return;
 		Queue<TreeNode> q = new LinkedList<>();
-
 		q.add(root);
 
 		while (!q.isEmpty()) {
@@ -57,8 +56,7 @@ public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 
 			if (node.left == null && node.right == null)
 				continue;
-			result.add(node.val);
-
+			res.add(node.val);
 			if (node.left != null)
 				q.add(node.left);
 			else if (node.right != null)
@@ -66,17 +64,16 @@ public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 		}
 	}
 
-	private static void rightBoundary(TreeNode root, List<Integer> result) {
+	private static void rightBoundary(TreeNode root, List<Integer> res) {
 		if(root == null)
 			return;
 		Queue<TreeNode> q = new LinkedList<>();
-
-		q.add(root);
-
 		List<Integer> temp = new ArrayList<>();
 
+		q.add(root);
 		while (!q.isEmpty()) {
 			TreeNode node = q.poll();
+
 			if (node.left == null && node.right == null)
 				continue;
 			temp.add(node.val);
@@ -88,7 +85,7 @@ public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 		}
 
 		Collections.reverse(temp);
-		result.addAll(temp);
+		res.addAll(temp);
 	}
 
 	public static void main(String[] args) {
@@ -99,14 +96,14 @@ public class BoundaryTraversalOfBinaryTreeLeetcode545 {
 		bt.root.left.left = new TreeNode(4);
 		bt.root.left.right = new TreeNode(5);
 		bt.root.left.right.left = new TreeNode(7);
-		bt.root.left.right.right = new TreeNode(8);
+		bt.root.left.right.right= new TreeNode(8);
 		bt.root.right.left = new TreeNode(6);
 		bt.root.right.left.left = new TreeNode(9);
 		bt.root.right.left.right = new TreeNode(10);
-
-		List<Integer> result = boundaryOfBinaryTree(bt.root);
-
-		System.out.println(result);
+		
+		List<Integer> res = boundaryOfBinaryTree(bt.root);
+		
+		System.out.println(res);
 	}
 
 }
