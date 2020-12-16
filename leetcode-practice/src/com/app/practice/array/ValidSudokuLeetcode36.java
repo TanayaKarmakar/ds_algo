@@ -1,25 +1,27 @@
 package com.app.practice.array;
 
 public class ValidSudokuLeetcode36 {
-	private static boolean isSafe(char[][] board, int row, int col) {
-		int num = board[row][col];
+	private static final int GRID_SIZE = 9;
 
-		for (int c = 0; c < 9; c++) {
-			if (col != c && board[row][c] == num)
+	private static boolean isSafe(char[][] board, int r, int c) {
+		char val = board[r][c];
+
+		for (int i = 0; i < GRID_SIZE; i++) {
+			if (i != c && board[r][i] == val)
 				return false;
 		}
 
-		for (int r = 0; r < 9; r++) {
-			if (row != r && board[r][col] == num)
+		for (int i = 0; i < GRID_SIZE; i++) {
+			if (i != r && board[i][c] == val)
 				return false;
 		}
 
-		int startRow = row - (row % 3);
-		int startCol = col - (col % 3);
+		int startRow = r - r % 3;
+		int startCol = c - c % 3;
 
 		for (int i = startRow; i < startRow + 3; i++) {
 			for (int j = startCol; j < startCol + 3; j++) {
-				if (i != row && j != col && board[i][j] == num)
+				if (i != r && j != c && board[i][j] == val)
 					return false;
 			}
 		}
@@ -28,22 +30,19 @@ public class ValidSudokuLeetcode36 {
 	}
 
 	private static boolean isValidSudoku(char[][] board) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (board[i][j] != '.') {
+		for (int i = 0; i < GRID_SIZE; i++) {
+			for (int j = 0; j < GRID_SIZE; j++) {
+				if (Character.isDigit(board[i][j])) {
 					if (!isSafe(board, i, j))
 						return false;
 				}
 			}
 		}
-
 		return true;
 	}
 
 	public static void main(String[] args) {
-		char[][] board = { { '5', '3', '.', '.', '7', '.', '.', '.', '.' },
-				{ '6', '.', '.', '1', '9', '5', '.', '.', '.' }, { '.', '9', '8', '.', '.', '.', '.', '6', '.' }, {},
-				{}, {}, {}, {}, {} };
+		// TODO Auto-generated method stub
 
 	}
 
