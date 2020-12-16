@@ -11,6 +11,19 @@ public class DuckSimulator {
 		
 		System.out.println("Duck creation with abstract factory");
 		duckCreationWithFactoryPattern();
+		
+		System.out.println("Duck Simulation with Observer pattern");
+		duckSimulationWithObserver();
+	}
+	
+	private static void duckSimulationWithObserver() {
+		AbstractDuckFactory duckFactory = new DuckFactory();
+		Quackable mallardDuck = duckFactory.createMallardDuck();
+		
+		Observer quackologist = new Quackologist();
+		mallardDuck.registerObserver(quackologist);
+		
+		simulate(mallardDuck);
 	}
 	
 	private static void duckCreationWithFactoryPattern() {

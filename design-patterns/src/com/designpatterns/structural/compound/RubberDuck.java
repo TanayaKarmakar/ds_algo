@@ -7,4 +7,16 @@ public class RubberDuck implements Quackable {
 		System.out.println("Squeak");
 	}
 
+	@Override
+	public void registerObserver(Observer observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
