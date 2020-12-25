@@ -15,6 +15,8 @@ class Bridge implements Comparable<Bridge> {
 
 	@Override
 	public int compareTo(Bridge o) {
+		if(this.northBankPos == o.northBankPos)
+			return this.southBankPos - o.southBankPos;
 		return this.northBankPos - o.northBankPos;
 	}
 }
