@@ -4,50 +4,39 @@ import java.util.Stack;
 
 class MinStack {
 	Stack<Integer> stack;
-	Stack<Integer> mStack;
+	Stack<Integer> minStack;
 
-    public MinStack() {
-        stack = new Stack<>();
-        mStack = new Stack<>();
-    }
-    
-    public void push(int x) {
-        stack.push(x);
-        if(mStack.isEmpty() || mStack.peek() > x) {
-        	mStack.push(x);
-        }
-    }
-    
-    public void pop() {
-        int el = stack.pop();
-        if(mStack.peek() == el)
-        	mStack.pop();
-    }
-    
-    public int top() {
-        return stack.isEmpty() ? Integer.MAX_VALUE : stack.peek();
-    }
-    
-    public int getMin() {
-        return mStack.isEmpty() ? Integer.MAX_VALUE : mStack.peek();
-    }
+	/** initialize your data structure here. */
+	public MinStack() {
+		stack = new Stack<>();
+		minStack = new Stack<>();
+	}
+
+	public void push(int x) {
+		stack.push(x);
+		if(minStack.isEmpty() || minStack.peek() >= x)
+			minStack.push(x);
+	}
+
+	public void pop() {
+		int item = stack.pop();
+		if(minStack.peek() == item)
+			minStack.pop();
+	}
+
+	public int top() {
+		return stack.peek();
+	}
+
+	public int getMin() {
+		return minStack.isEmpty() ? 0: minStack.peek();
+	}
 }
 
-public class MinStackLeetcode155 {
+public class MinStackLeetCode155 {
 
 	public static void main(String[] args) {
-		MinStack minStack = new MinStack();
-		minStack.push(-2);
-		minStack.push(0);
-		minStack.push(-3);
-		
-		System.out.println(minStack.getMin());
-		
-		minStack.pop();
-		
-		System.out.println(minStack.top());
-		
-		System.out.println(minStack.getMin());
+		// TODO Auto-generated method stub
 
 	}
 
