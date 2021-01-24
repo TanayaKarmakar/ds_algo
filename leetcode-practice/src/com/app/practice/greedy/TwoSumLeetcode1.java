@@ -1,36 +1,31 @@
 package com.app.practice.greedy;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSumLeetcode1 {
 	private static int[] twoSum(int[] nums, int target) {
-		int[] res = new int[2];
-		Arrays.sort(nums);
+		Map<Integer, Integer> map = new HashMap<>();
 
-		int start = 0;
-		int end = nums.length - 1;
-
-		while (start < end) {
-			if (nums[start] + nums[end] == target) {
-				res[0] = start;
-				res[1] = end;
-				return res;
-			} else if (nums[start] + nums[end] > target) {
-				end--;
+		for (int i = 0; i < nums.length; i++) {
+			if (map.containsKey(target - nums[i])) {
+				return new int[] { map.get(target - nums[i]), i };
 			} else {
-				start++;
+				map.put(nums[i], i);
 			}
 		}
-		return res;
+
+		return new int[] { -1, -1 };
 	}
 
 	public static void main(String[] args) {
 		int[] nums = { 2, 7, 11, 15 };
 		int target = 9;
 		
-		int[] res = twoSum(nums, target);
+		int[] ans = twoSum(nums, target);
 		
-		System.out.println(Arrays.toString(res));
+		System.out.println(Arrays.toString(ans));
 
 	}
 
