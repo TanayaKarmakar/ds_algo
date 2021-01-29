@@ -1,14 +1,9 @@
 package com.app.practice.array;
 
-import java.util.Arrays;
-
-public class MoveZerosLeetcode283 {
-	private static void moveZeros(int[] nums) {
-		if(nums.length <= 1)
-			return;
-		int n = nums.length;
+public class MoveZerosLeetCode283 {
+	private static void moveZeroes(int[] nums) {
 		int i = -1;
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < nums.length; j++) {
 			if (nums[j] != 0) {
 				i++;
 				int tmp = nums[i];
@@ -19,11 +14,8 @@ public class MoveZerosLeetcode283 {
 	}
 
 	public static void main(String[] args) {
-		int[] nums = { 0, 1, 0, 3, 12 };
-		moveZeros(nums);
-		
-		System.out.println(Arrays.toString(nums));
-		
+		// TODO Auto-generated method stub
+
 	}
 
 }
