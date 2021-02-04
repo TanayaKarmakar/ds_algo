@@ -1,46 +1,38 @@
 package com.app.practice.greedy;
 
-import java.util.Scanner;
-
 public class BestTimeToBuyAndSellStockIILeetcode122 {
-	private static int maxProfit(int[] nums) {
-		int n = nums.length;
-		int maxProfit = 0;
-		
-		int i = 0;
-		while(i < n) {
-			while((i + 1) < n && nums[i + 1] < nums[i])
-				i++;
-			int start = i++;
-			
-			while((i + 1) < n && nums[i] < nums[i + 1])
-				i++;
-			int end = i++;
-			
-			if(start < n && end < n) {
-				maxProfit += (nums[end] - nums[start]);
-			}
-		}
-		
-		return maxProfit;
-	}
+    private static int maxProfit(int[] prices) {
+        int n = prices.length;
 
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		int n = scanner.nextInt();
-		int[] nums = new int[n];
-		
-		for(int i = 0; i < n; i++) {
-			nums[i] = scanner.nextInt();
-		}
-		
-		int maxProfit = maxProfit(nums);
-		
-		System.out.println(maxProfit);
-		
-		scanner.close();
+        int i = 0;
+        int totalProfit = 0;
 
-	}
+        while(i < n) {
+            while(i + 1 < n && prices[i] > prices[i + 1]) {
+                i++;
+            }
 
+            int start = i++;
+
+            while(i + 1 < n && prices[i] < prices[i + 1]) {
+                i++;
+            }
+
+            int end = i++;
+
+            if(start < n && end < n) {
+                totalProfit += (prices[end] - prices[start]);
+            }
+        }
+
+        return totalProfit;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {7,1,5,3,6,4};
+
+        int totalProfit = maxProfit(nums);
+
+        System.out.println(totalProfit);
+    }
 }
