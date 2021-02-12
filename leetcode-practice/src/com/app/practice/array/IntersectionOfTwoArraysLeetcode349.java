@@ -1,50 +1,36 @@
 package com.app.practice.array;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class IntersectionOfTwoArraysLeetcode349 {
-	private static int[] intersection(int[] nums1, int[] nums2) {
-		if(nums1.length == 0 || nums2.length == 0)
-			return new int[] {};
-		Arrays.sort(nums1);
-		Arrays.sort(nums2);
+    private int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1.length < nums2.length)
+            return intersection(nums2, nums1);
+        Set<Integer> set = new HashSet<>();
+        for(int i = 0; i < nums1.length; i++)
+            set.add(nums1[i]);
 
-		Set<Integer> set = new HashSet<>();
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < nums2.length; i++) {
+            if(set.contains(nums2[i])) {
+                list.add(nums2[i]);
+                set.remove(nums2[i]);
+            }
+        }
 
-		int m = nums1.length;
-		int n = nums2.length;
+        int[] res = new int[list.size()];
+        int i = 0;
+        for(Integer el: list) {
+            res[i++] = el;
+        }
 
-		int i = 0;
-		int j = 0;
-		while (i < m && j < n) {
-			if (nums1[i] < nums2[j])
-				i++;
-			else if (nums1[i] > nums2[j])
-				j++;
-			else {
-				set.add(nums1[i]);
-				i++;
-				j++;
-			}
-		}
+        return res;
+    }
 
-		int[] arr = new int[set.size()];
-		i = 0;
-		for (Integer el : set) {
-			arr[i++] = el;
-		}
+    public static void main(String[] args) {
 
-		return arr;
-	}
-
-	public static void main(String[] args) {
-		int[] nums1 = { 1, 2, 2, 1 };
-		int[] nums2 = { 2, 2 };
-		
-		System.out.println(Arrays.toString(intersection(nums1, nums2)));
-
-	}
-
+    }
 }

@@ -1,35 +1,27 @@
 package com.app.practice.strings;
 
-import java.util.Scanner;
-
 public class IsSubsequenceLeetcode392 {
-	private static boolean isSubsequence(String s, String t) {
-		int n = s.length();
-		int m = t.length();
-		
-		int j = 0; 
-		int i = 0;
-		while(j < n && i < m) {
-			if(s.charAt(j) == t.charAt(i)) {
-				j++;
-			}
-			i++;
-		}
-		
-		return j == n;
-	}
+    private static boolean isSubsequence(String s, String t) {
+        if(s.length() == 0)
+            return true;
+        if(t.length() == 0)
+            return false;
+       int n = t.length();
+       int m = s.length();
 
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		String source = scanner.next();
-		String target = scanner.next();
-		
-		boolean isPossible = isSubsequence(source, target);
-		
-		System.out.println(isPossible);
-		
-		scanner.close();
-	}
+       int i = 0;
+       int j = 0;
 
+       while(i < m && j < n) {
+           if(s.charAt(i) == t.charAt(j))
+               i++;
+           j++;
+       }
+
+       return i == s.length();
+    }
+
+    public static void main(String[] args) {
+
+    }
 }

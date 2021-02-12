@@ -3,35 +3,30 @@ package com.app.practice.graphbfsdfs;
 import java.util.Arrays;
 
 public class FloodFillLeetcode733 {
-	private static final int[] rDir = { -1, 1, 0, 0 };
-	private static final int[] cDir = { 0, 0, -1, 1 };
+    private static void dfs(int[][] image, boolean[][] visited, int sr, int sc, int startPixelColor, int newColor) {
+        if(sr >= image.length || sc >= image[0].length || sr < 0
+                || sc < 0 || image[sr][sc] != startPixelColor || visited[sr][sc])
+            return;
+        image[sr][sc] = newColor;
+        visited[sr][sc] = true;
+        dfs(image, visited, sr + 1, sc, startPixelColor, newColor);
+        dfs(image, visited, sr - 1, sc, startPixelColor, newColor);
+        dfs(image, visited, sr, sc + 1, startPixelColor, newColor);
+        dfs(image, visited, sr, sc - 1, startPixelColor, newColor);
+    }
 
-	private static void dfs(int[][] image, boolean[][] visited, int r, int c, int newColor) {
-		if (r < 0 || r >= image.length || c < 0 || c >= image[0].length 
-				|| image[r][c] == newColor || image[r][c] == 0 || visited[r][c] == true)
-			return;
-		visited[r][c] = true;
-		image[r][c] = newColor;
-		for (int i = 0; i < 4; i++) {
-			int newRow = r + rDir[i];
-			int newCol = c + cDir[i];
+    private static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        boolean[][] visited = new boolean[image.length][image[0].length];
+        int startPixelColor = image[sr][sc];
+        dfs(image, visited, sr, sc, startPixelColor, newColor);
+        return image;
+    }
 
-			dfs(image, visited, newRow, newCol, newColor);
-		}
-	}
+    public static void main(String[] args) {
+        int[][] image = {{1,1,1},{1,1,0},{1,0,1}};
 
-	private static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-		boolean[][] visited = new boolean[image.length][image[0].length];
-		dfs(image, visited, sr, sc, newColor);
-		return image;
-	}
+        floodFill(image, 1, 1, 2);
 
-	public static void main(String[] args) {
-		int[][] image = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 } };
-
-		image = floodFill(image, 1, 1, 2);
-
-		System.out.println(Arrays.deepToString(image));
-	}
-
+        System.out.println(Arrays.deepToString(image));
+    }
 }
